@@ -1253,6 +1253,11 @@
             banner.classList.add('hidden');
             updateDistances(userLat, userLng);
             addUserMarkerToMap(userLat, userLng);
+            try {
+                localStorage.setItem('loc-lat', userLat);
+                localStorage.setItem('loc-lng', userLng);
+                localStorage.setItem('loc-allowed', '1');
+            } catch(e) {}
         }
 
         function onLocationError() {
@@ -1271,12 +1276,31 @@
             });
         }
 
-        // Check if location was previously dismissed
+        // Restore saved state
         var dismissed = false;
-        try { dismissed = sessionStorage.getItem('loc-dismissed') === '1'; } catch(e) {}
+        var allowed = false;
+        try {
+            dismissed = localStorage.getItem('loc-dismissed') === '1';
+            allowed = localStorage.getItem('loc-allowed') === '1';
+        } catch(e) {}
 
-        if (!navigator.geolocation || dismissed) {
+        if (!navigator.geolocation || dismissed || allowed) {
             banner.classList.add('hidden');
+        }
+
+        // If previously allowed, restore cached distances immediately and refresh in background
+        if (allowed) {
+            try {
+                var cachedLat = parseFloat(localStorage.getItem('loc-lat'));
+                var cachedLng = parseFloat(localStorage.getItem('loc-lng'));
+                if (!isNaN(cachedLat) && !isNaN(cachedLng)) {
+                    updateDistances(cachedLat, cachedLng);
+                    // addUserMarkerToMap will run after map is initialized
+                    var origInitMap = null; // handled below via event
+                }
+            } catch(e) {}
+            // Silently refresh position in background
+            requestLocation();
         }
 
         btnAllow.addEventListener('click', function() {
@@ -1285,7 +1309,7 @@
 
         btnDismiss.addEventListener('click', function() {
             banner.classList.add('hidden');
-            try { sessionStorage.setItem('loc-dismissed', '1'); } catch(e) {}
+            try { localStorage.setItem('loc-dismissed', '1'); } catch(e) {}
         });
 
         // ── Leaflet Map ──
@@ -1320,6 +1344,15 @@
             if (bounds.length > 0) {
                 map.fitBounds(bounds, { padding: [40, 40] });
             }
+
+            // If we have cached location, add user marker to the newly initialized map
+            try {
+                var savedLat = parseFloat(localStorage.getItem('loc-lat'));
+                var savedLng = parseFloat(localStorage.getItem('loc-lng'));
+                if (!isNaN(savedLat) && !isNaN(savedLng)) {
+                    addUserMarkerToMap(savedLat, savedLng);
+                }
+            } catch(e) {}
         }
 
         // Initialize map when it scrolls into view (lazy)
