@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -263,6 +265,121 @@
             flex-shrink: 0;
         }
 
+        .distance-badge {
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.82rem;
+            color: var(--ocean-mid);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, rgba(177,212,224,0.3), rgba(46,139,192,0.1));
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .distance-badge.visible {
+            display: inline-flex;
+        }
+
+        .distance-badge svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Location prompt banner */
+        .location-banner {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: var(--white);
+            text-align: center;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .location-banner.hidden {
+            display: none;
+        }
+
+        .location-banner p {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .location-banner button {
+            border: none;
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .location-banner button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-allow {
+            background: var(--white);
+            color: var(--ocean-deep);
+        }
+
+        .btn-dismiss {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        /* Map section */
+        .map-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .map-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            height: 500px;
+        }
+
+        .map-container .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-container .leaflet-popup-content {
+            margin: 12px 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 1024px) {
+            .map-section {
+                padding: 0 2rem 5rem;
+            }
+            .map-container {
+                height: 550px;
+            }
+        }
+
         /* Photo attribution */
         .photo-credit {
             position: absolute;
@@ -397,6 +514,13 @@
 </head>
 <body>
 
+    <!-- Location Permission Banner -->
+    <div class="location-banner" id="locationBanner">
+        <p>&#128205; Enable location to see distances to each beach</p>
+        <button class="btn-allow" id="btnAllowLocation">Allow Location</button>
+        <button class="btn-dismiss" id="btnDismissLocation">No Thanks</button>
+    </div>
+
     <!-- Language Switcher -->
     <nav class="lang-switcher" aria-label="Language selector">
         <button data-lang="en" class="active" title="English" aria-label="English">🇬🇧</button>
@@ -431,7 +555,7 @@
     <section id="beaches" class="beaches">
 
         <!-- 1. Kalanggaman Island (Featured) -->
-        <article class="beach-card featured">
+        <article class="beach-card featured" data-lat="11.1146" data-lng="124.2508">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/1280px-Kalanggaman_Island_2024.jpg"
                      alt="Kalanggaman Island's famous white sandbar extending into turquoise waters"
@@ -442,6 +566,10 @@
             <div class="card-body">
                 <h3>Kalanggaman Island</h3>
                 <div class="location">&#9906; Palompon, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     One of the most photogenic islands in the Philippines, Kalanggaman is famous for its breathtaking 795-meter white sandbar that stretches out into crystal-clear waters. Named after the local word "langgam" (bird), its shape resembles a bird in flight. Recognized by Lonely Planet as one of the most picturesque islands in the Philippines, it's a must-visit destination with pristine beaches, vibrant coral reefs, and stunning sunrises.
                 </p>
@@ -460,7 +588,7 @@
         </article>
 
         <!-- 2. Digyo Island (Cuatro Islas) -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.4500" data-lng="124.6833">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Crystal_clear_blue_waters.jpg/1280px-Crystal_clear_blue_waters.jpg"
                      alt="Crystal clear blue waters at Cuatro Islas, Leyte"
@@ -471,6 +599,10 @@
             <div class="card-body">
                 <h3>Cuatro Islas &mdash; Digyo Island</h3>
                 <div class="location">&#9906; Inopacan, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     Digyo Island is the crown jewel of the Cuatro Islas group, boasting white sand beaches comparable to Boracay's famous shores. The four islands &mdash; Apid, Digyo, Mahaba, and Himokilan &mdash; are perfect for island-hopping adventures with pearl-white sand, crystal-clear water, and excellent snorkeling.
                 </p>
@@ -487,7 +619,7 @@
         </article>
 
         <!-- 3. Canigao Island -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.2500" data-lng="124.7500">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Canigao_Island_located_at_Matalom%2C_Leyte.jpg/1280px-Canigao_Island_located_at_Matalom%2C_Leyte.jpg"
                      alt="Canigao Island's turquoise waters and white sand shore in Matalom, Leyte"
@@ -498,6 +630,10 @@
             <div class="card-body">
                 <h3>Canigao Island</h3>
                 <div class="location">&#9906; Matalom, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     A tropical jewel off Leyte's southwestern coast, Canigao Island features powdery white sand and crystal-clear waters teeming with vibrant marine life. The surrounding marine sanctuary makes it ideal for snorkeling, scuba diving, kayaking, and jet skiing. Don't miss the freshly caught seafood at the local wet market.
                 </p>
@@ -515,7 +651,7 @@
         </article>
 
         <!-- 4. Sambawan Island -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.8167" data-lng="124.3500">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Sunrise_in_Kalanggaman_Island.jpg/1280px-Sunrise_in_Kalanggaman_Island.jpg"
                      alt="Stunning sunrise over the beach waters near Leyte"
@@ -526,6 +662,10 @@
             <div class="card-body">
                 <h3>Sambawan Island</h3>
                 <div class="location">&#9906; Maripipi, Biliran (near Leyte)</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     A small, stunning islet off Biliran's northwestern coast &mdash; formerly a sub-province of Leyte. Sambawan features pristine sandy stretches and a vibrant marine ecosystem perfect for divers. Trek to the island's highest point for a panoramic watchtower view, and stay for a magical sunset over the sea.
                 </p>
@@ -543,7 +683,7 @@
         </article>
 
         <!-- 5. Limasawa Island -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="9.9333" data-lng="125.0167">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Sonnenuntergang_Panorama.jpg/1280px-Sonnenuntergang_Panorama.jpg"
                      alt="Panoramic sunset over the Cuatro Islas waters, Leyte"
@@ -554,6 +694,10 @@
             <div class="card-body">
                 <h3>Limasawa Island</h3>
                 <div class="location">&#9906; Southern Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     An idyllic seaside destination with deep historical significance &mdash; this is where Magellan held the first Christian mass in Asia in 1521. Beyond history, Limasawa's shores boast white sand beaches surrounded by crystal-clear waters. Fish sanctuaries make it ideal for snorkeling and scuba diving, with stunning views of Leyte, Bohol, and Mindanao.
                 </p>
@@ -571,7 +715,7 @@
         </article>
 
         <!-- 6. Sabang Daguitan Beach -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.9528" data-lng="125.0319">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Canigao_Fish_Sanctuary.jpg/1280px-Canigao_Fish_Sanctuary.jpg"
                      alt="Crystal-clear blue waters of Leyte's coast"
@@ -582,6 +726,10 @@
             <div class="card-body">
                 <h3>Sabang Daguitan Beach</h3>
                 <div class="location">&#9906; Dulag, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     Leyte's go-to surf destination. Sitting at the coast of Dulag by the mouth of a river, this beach offers surfing, skimboarding, kayaking, and fishing. Enjoy easy river flow or catch ocean waves. The nearby surf camp offers floating huts on the river, rustic cabins, and even a pick-and-pay farm for a unique beach getaway.
                 </p>
@@ -599,7 +747,7 @@
         </article>
 
         <!-- 7. Mahaba Island -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.4833" data-lng="124.6667">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kalanggaman_Island_from_a_different_view.jpg/1280px-Kalanggaman_Island_from_a_different_view.jpg"
                      alt="Aerial view of a pristine Leyte island with white sand and turquoise water"
@@ -610,6 +758,10 @@
             <div class="card-body">
                 <h3>Mahaba Island</h3>
                 <div class="location">&#9906; Inopacan, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     Part of the Cuatro Islas group, Mahaba Island lives up to its name ("long" in Filipino) with stretches of white sand shores and nearby marine sanctuaries housing diverse fish species. A quiet, unspoiled gem perfect for those who want a peaceful beach experience away from it all.
                 </p>
@@ -626,7 +778,7 @@
         </article>
 
         <!-- 8. Red Beach (MacArthur Landing) -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.1600" data-lng="125.0167">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Douglas_MacArthur_lands_Leyte1.jpg/1280px-Douglas_MacArthur_lands_Leyte1.jpg"
                      alt="Historic photo of General MacArthur landing at Red Beach, Palo, Leyte"
@@ -637,6 +789,10 @@
             <div class="card-body">
                 <h3>Red Beach (MacArthur Landing)</h3>
                 <div class="location">&#9906; Palo, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     One of the most historically significant beaches in the Philippines. On October 20, 1944, General Douglas MacArthur famously waded ashore here, fulfilling his promise "I shall return." Today, bronze statues commemorate the landing. The beach itself offers calm waters and a moving journey through World War II history.
                 </p>
@@ -653,7 +809,7 @@
         </article>
 
         <!-- 9. Himokilan Island -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.4417" data-lng="124.6917">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Hanggang_sa_Muli.jpg/1280px-Hanggang_sa_Muli.jpg"
                      alt="Beautiful boat departure scene from Canigao Island in Leyte"
@@ -664,6 +820,10 @@
             <div class="card-body">
                 <h3>Himokilan Island</h3>
                 <div class="location">&#9906; Hindang, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     The fourth island of the Cuatro Islas group, Himokilan features a lush green hill perfect for short treks alongside its powdery white shores. The surrounding waters offer beautiful coral formations and diverse marine life, making it a wonderful spot for snorkeling and quiet beach relaxation.
                 </p>
@@ -680,7 +840,7 @@
         </article>
 
         <!-- 10. Pantalan Beach (Hidden Gem) -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.3500" data-lng="124.4500">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/WV_banner_Leyte_island_Pantalan_beach.jpg/1280px-WV_banner_Leyte_island_Pantalan_beach.jpg"
                      alt="Pantalan Beach on Leyte Island with calm turquoise waters"
@@ -691,6 +851,10 @@
             <div class="card-body">
                 <h3>Pantalan Beach</h3>
                 <div class="location">&#9906; Northern Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     A serene and largely undiscovered stretch of coastline in northern Leyte, Pantalan Beach offers calm turquoise waters and a peaceful atmosphere far from the tourist crowds. Its quiet shores and gentle waves make it a perfect escape for those seeking solitude and unspoiled natural beauty.
                 </p>
@@ -707,7 +871,7 @@
         </article>
 
         <!-- 11. Tanauan Skimboarding Beach -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.1167" data-lng="125.0167">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Beautiful_Landscape_at_Tanauan%2C_Leyte.jpg/1280px-Beautiful_Landscape_at_Tanauan%2C_Leyte.jpg"
                      alt="Beautiful coastal landscape of Tanauan, Leyte"
@@ -718,6 +882,10 @@
             <div class="card-body">
                 <h3>Tanauan Coast</h3>
                 <div class="location">&#9906; Tanauan, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     Known as the &ldquo;Skimboarding Capital of the Philippines,&rdquo; Tanauan's coastline along San Pedro Bay has hosted competitive skimboarding events since 2002. The wide, flat shoreline with consistent shallow waves creates ideal conditions for this thrilling water sport, attracting boarders from across the country.
                 </p>
@@ -734,7 +902,7 @@
         </article>
 
         <!-- 12. Mayorga Beach -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.0500" data-lng="125.0000">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Mayorga_beach_-_panoramio.jpg/1280px-Mayorga_beach_-_panoramio.jpg"
                      alt="Panoramic view of Mayorga Beach in Leyte"
@@ -745,6 +913,10 @@
             <div class="card-body">
                 <h3>Mayorga Beach</h3>
                 <div class="location">&#9906; Mayorga, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     Tucked along Leyte's eastern coast, Mayorga Beach is a quiet seaside stretch where locals gather at sunset while fishermen bring in their daily catch. With no resorts or crowds, it offers an authentic glimpse of coastal village life and a peaceful place to watch the horizon where the Pacific meets San Pedro Bay.
                 </p>
@@ -761,7 +933,7 @@
         </article>
 
         <!-- 13. Baybay Beach -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="10.6833" data-lng="124.8000">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Baybay_beach.jpg/1280px-Baybay_beach.jpg"
                      alt="Baybay Beach on Leyte's western coast"
@@ -772,6 +944,10 @@
             <div class="card-body">
                 <h3>Baybay Beach</h3>
                 <div class="location">&#9906; Baybay, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     The coastal promenade of Baybay City stretches along the Camotes Sea on Leyte's western shore, backed by the vibrant university town that is home to the Visayas State University. The beach area comes alive at dusk with food stalls, students, and families enjoying the breezy waterfront and dramatic sunsets over the sea.
                 </p>
@@ -788,7 +964,7 @@
         </article>
 
         <!-- 14. Calubian Sunset Coast -->
-        <article class="beach-card">
+        <article class="beach-card" data-lat="11.4500" data-lng="124.4500">
             <div class="image-container">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Calubian_Leyte_Philippines_Sunset.jpg/1280px-Calubian_Leyte_Philippines_Sunset.jpg"
                      alt="Golden sunset at Calubian, northern tip of Leyte"
@@ -799,6 +975,10 @@
             <div class="card-body">
                 <h3>Calubian Coast</h3>
                 <div class="location">&#9906; Calubian, Leyte</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
                 <p class="description">
                     At the far northern tip of Leyte, the coastal town of Calubian rewards the adventurous with spectacular sunsets that few tourists ever witness. Facing the San Bernardino Strait with views toward Samar, the quiet waterfront and surrounding mangrove areas offer a remote, untouched corner of Leyte that feels worlds away from everything.
                 </p>
@@ -814,6 +994,12 @@
             </div>
         </article>
 
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <h2 id="mapTitle">&#127961; Beach Map</h2>
+        <div class="map-container" id="beachMap"></div>
     </section>
 
     <!-- Footer -->
@@ -1004,6 +1190,151 @@
             var saved = localStorage.getItem('beach-lang');
             if (saved && saved !== 'en' && TX[saved]) setLanguage(saved);
         } catch(e) {}
+    })();
+
+    // ── Geolocation, Distance & Map ──
+    (function() {
+        var banner = document.getElementById('locationBanner');
+        var btnAllow = document.getElementById('btnAllowLocation');
+        var btnDismiss = document.getElementById('btnDismissLocation');
+        var cards = document.querySelectorAll('.beach-card');
+        var userMarker = null;
+        var map = null;
+
+        // Haversine formula — returns distance in km
+        function haversine(lat1, lon1, lat2, lon2) {
+            var R = 6371;
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+
+        function formatDistance(km) {
+            if (km < 1) return Math.round(km * 1000) + ' m away';
+            if (km < 10) return km.toFixed(1) + ' km away';
+            return Math.round(km) + ' km away';
+        }
+
+        function updateDistances(userLat, userLng) {
+            cards.forEach(function(card) {
+                var lat = parseFloat(card.dataset.lat);
+                var lng = parseFloat(card.dataset.lng);
+                if (isNaN(lat) || isNaN(lng)) return;
+                var dist = haversine(userLat, userLng, lat, lng);
+                var badge = card.querySelector('.distance-badge');
+                var text = card.querySelector('.distance-text');
+                if (badge && text) {
+                    text.textContent = formatDistance(dist);
+                    badge.classList.add('visible');
+                }
+            });
+        }
+
+        function addUserMarkerToMap(userLat, userLng) {
+            if (!map) return;
+            if (userMarker) map.removeLayer(userMarker);
+            var userIcon = L.divIcon({
+                html: '<div style="background:#ff6b6b;width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
+                className: '',
+                iconSize: [14, 14],
+                iconAnchor: [7, 7]
+            });
+            userMarker = L.marker([userLat, userLng], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<strong>Your location</strong>');
+        }
+
+        function onLocationSuccess(pos) {
+            var userLat = pos.coords.latitude;
+            var userLng = pos.coords.longitude;
+            banner.classList.add('hidden');
+            updateDistances(userLat, userLng);
+            addUserMarkerToMap(userLat, userLng);
+        }
+
+        function onLocationError() {
+            banner.classList.add('hidden');
+        }
+
+        function requestLocation() {
+            if (!navigator.geolocation) {
+                banner.classList.add('hidden');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError, {
+                enableHighAccuracy: false,
+                timeout: 10000,
+                maximumAge: 300000
+            });
+        }
+
+        // Check if location was previously dismissed
+        var dismissed = false;
+        try { dismissed = sessionStorage.getItem('loc-dismissed') === '1'; } catch(e) {}
+
+        if (!navigator.geolocation || dismissed) {
+            banner.classList.add('hidden');
+        }
+
+        btnAllow.addEventListener('click', function() {
+            requestLocation();
+        });
+
+        btnDismiss.addEventListener('click', function() {
+            banner.classList.add('hidden');
+            try { sessionStorage.setItem('loc-dismissed', '1'); } catch(e) {}
+        });
+
+        // ── Leaflet Map ──
+        function initMap() {
+            map = L.map('beachMap', {
+                scrollWheelZoom: false
+            }).setView([10.75, 124.75], 8);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            var bounds = [];
+
+            cards.forEach(function(card) {
+                var lat = parseFloat(card.dataset.lat);
+                var lng = parseFloat(card.dataset.lng);
+                if (isNaN(lat) || isNaN(lng)) return;
+
+                var name = card.querySelector('h3').textContent;
+                var location = card.querySelector('.location').textContent;
+
+                var marker = L.marker([lat, lng]).addTo(map);
+                marker.bindPopup(
+                    '<strong>' + name + '</strong><br>' +
+                    '<span style="color:#555;font-size:0.82rem;">' + location + '</span>'
+                );
+                bounds.push([lat, lng]);
+            });
+
+            if (bounds.length > 0) {
+                map.fitBounds(bounds, { padding: [40, 40] });
+            }
+        }
+
+        // Initialize map when it scrolls into view (lazy)
+        var mapEl = document.getElementById('beachMap');
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    initMap();
+                    observer.disconnect();
+                }
+            }, { rootMargin: '200px' });
+            observer.observe(mapEl);
+        } else {
+            initMap();
+        }
     })();
     </script>
 
