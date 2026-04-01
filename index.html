@@ -3,9 +3,650 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beaches</title>
+    <title>Beaches of Leyte Province, Philippines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sand: #f5e6d3;
+            --ocean-deep: #0c2d48;
+            --ocean-mid: #145374;
+            --ocean-light: #2e8bc0;
+            --foam: #b1d4e0;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #555;
+            --coral: #ff6b6b;
+            --sunset: #f7a072;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--sand);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Kalanggaman_Island_2024.jpg/1280px-Kalanggaman_Island_2024.jpg') center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--sand), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--foam);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .scroll-indicator {
+            display: inline-block;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Intro Section */
+        .intro {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Beach Cards Grid */
+        .beaches {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .beach-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .beach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+        }
+
+        .beach-card .image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+        }
+
+        .beach-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .beach-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .beach-card .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(12, 45, 72, 0.85);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .beach-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .beach-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .beach-card .location {
+            font-size: 0.85rem;
+            color: var(--ocean-light);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .beach-card .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights span {
+            background: var(--sand);
+            color: var(--ocean-mid);
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--ocean-mid), var(--ocean-light));
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .map-link:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .map-link svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Photo attribution */
+        .photo-credit {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.7);
+            background: rgba(0,0,0,0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            backdrop-filter: blur(2px);
+        }
+
+        .photo-credit a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ocean-deep);
+            color: var(--foam);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto 0.5rem;
+        }
+
+        footer .credits {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: rgba(177, 212, 224, 0.6);
+        }
+
+        /* Tablet */
+        @media (min-width: 640px) {
+            .beaches {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 2;
+            }
+
+            .beach-card.featured .image-container {
+                aspect-ratio: 21 / 9;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .beaches {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                padding: 1rem 2rem 5rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 3;
+            }
+
+            .beach-card.featured .card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .intro {
+                padding: 5rem 2rem 3rem;
+            }
+
+            .beach-card .card-body {
+                padding: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Beaches of Leyte</h1>
+            <p class="subtitle">Eastern Visayas, Philippines</p>
+            <p class="tagline">
+                From the iconic sandbar of Kalanggaman Island to the serene shores of Cuatro Islas, discover the pristine coastal gems of Leyte province.
+            </p>
+            <a href="#beaches" class="scroll-indicator">
+                Explore
+                <span>&#8595;</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro">
+        <h2>Paradise in the Eastern Visayas</h2>
+        <p>
+            Leyte province, located in the heart of the Philippine archipelago, is home to some of the country's most stunning and unspoiled coastal destinations. With powdery white sand, crystal-clear turquoise waters, and vibrant marine life, these beaches offer a slice of tropical paradise far from the crowds.
+        </p>
+    </section>
+
+    <!-- Beach Cards -->
+    <section id="beaches" class="beaches">
+
+        <!-- 1. Kalanggaman Island (Featured) -->
+        <article class="beach-card featured">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Kalanggaman_Island_2024.jpg/1280px-Kalanggaman_Island_2024.jpg"
+                     alt="Kalanggaman Island's famous white sandbar extending into turquoise waters"
+                     loading="lazy">
+                <span class="badge">&#9733; Most Popular</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kalanggaman_Island_2024.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Kalanggaman Island</h3>
+                <div class="location">&#9906; Palompon, Leyte</div>
+                <p class="description">
+                    One of the most photogenic islands in the Philippines, Kalanggaman is famous for its breathtaking 795-meter white sandbar that stretches out into crystal-clear waters. Named after the local word "langgam" (bird), its shape resembles a bird in flight. Recognized by Lonely Planet as one of the most picturesque islands in the Philippines, it's a must-visit destination with pristine beaches, vibrant coral reefs, and stunning sunrises.
+                </p>
+                <div class="highlights">
+                    <span>&#127965; White Sandbar</span>
+                    <span>&#127754; Snorkeling</span>
+                    <span>&#9978; Scuba Diving</span>
+                    <span>&#127769; Camping</span>
+                    <span>&#128034; Sea Turtles</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Kalanggaman+Island/@11.1146,124.2508,15z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 2. Digyo Island (Cuatro Islas) -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wv_Leyte_Island_banner.jpg/1280px-Wv_Leyte_Island_banner.jpg"
+                     alt="Beautiful turquoise beach waters at Cuatro Islas, Leyte"
+                     loading="lazy">
+                <span class="badge">Island Hopping</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Wv_Leyte_Island_banner.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Cuatro Islas &mdash; Digyo Island</h3>
+                <div class="location">&#9906; Inopacan, Leyte</div>
+                <p class="description">
+                    Digyo Island is the crown jewel of the Cuatro Islas group, boasting white sand beaches comparable to Boracay's famous shores. The four islands &mdash; Apid, Digyo, Mahaba, and Himokilan &mdash; are perfect for island-hopping adventures with pearl-white sand, crystal-clear water, and excellent snorkeling.
+                </p>
+                <div class="highlights">
+                    <span>&#127965; White Sand</span>
+                    <span>&#128674; Island Hopping</span>
+                    <span>&#127754; Snorkeling</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Digyo+Island/@10.4500,124.6833,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 3. Canigao Island -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Canigao_Island_located_at_Matalom%2C_Leyte.jpg/1280px-Canigao_Island_located_at_Matalom%2C_Leyte.jpg"
+                     alt="Canigao Island's turquoise waters and white sand shore in Matalom, Leyte"
+                     loading="lazy">
+                <span class="badge">Marine Sanctuary</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Canigao_Island_located_at_Matalom,_Leyte.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Canigao Island</h3>
+                <div class="location">&#9906; Matalom, Leyte</div>
+                <p class="description">
+                    A tropical jewel off Leyte's southwestern coast, Canigao Island features powdery white sand and crystal-clear waters teeming with vibrant marine life. The surrounding marine sanctuary makes it ideal for snorkeling, scuba diving, kayaking, and jet skiing. Don't miss the freshly caught seafood at the local wet market.
+                </p>
+                <div class="highlights">
+                    <span>&#127754; Snorkeling</span>
+                    <span>&#9978; Diving</span>
+                    <span>&#127843; Fresh Seafood</span>
+                    <span>&#9978; Kayaking</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Canigao+Island/@10.25,124.75,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 4. Sambawan Island -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sunrise_in_Kalanggaman_Island.jpg/1280px-Sunrise_in_Kalanggaman_Island.jpg"
+                     alt="Stunning sunrise over the beach waters near Leyte"
+                     loading="lazy">
+                <span class="badge">Hidden Gem</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Sunrise_in_Kalanggaman_Island.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Sambawan Island</h3>
+                <div class="location">&#9906; Maripipi, Biliran (near Leyte)</div>
+                <p class="description">
+                    A small, stunning islet off Biliran's northwestern coast &mdash; formerly a sub-province of Leyte. Sambawan features pristine sandy stretches and a vibrant marine ecosystem perfect for divers. Trek to the island's highest point for a panoramic watchtower view, and stay for a magical sunset over the sea.
+                </p>
+                <div class="highlights">
+                    <span>&#9978; Scuba Diving</span>
+                    <span>&#127749; Sunset Views</span>
+                    <span>&#128694; Trekking</span>
+                    <span>&#127769; Camping</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Sambawan+Island/@11.8167,124.3500,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 5. Limasawa Island -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Sonnenuntergang_Panorama.jpg/1280px-Sonnenuntergang_Panorama.jpg"
+                     alt="Panoramic sunset over the Cuatro Islas waters, Leyte"
+                     loading="lazy">
+                <span class="badge">Historic</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Sonnenuntergang_Panorama.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Limasawa Island</h3>
+                <div class="location">&#9906; Southern Leyte</div>
+                <p class="description">
+                    An idyllic seaside destination with deep historical significance &mdash; this is where Magellan held the first Christian mass in Asia in 1521. Beyond history, Limasawa's shores boast white sand beaches surrounded by crystal-clear waters. Fish sanctuaries make it ideal for snorkeling and scuba diving, with stunning views of Leyte, Bohol, and Mindanao.
+                </p>
+                <div class="highlights">
+                    <span>&#127965; White Sand</span>
+                    <span>&#128205; Historic Site</span>
+                    <span>&#127754; Snorkeling</span>
+                    <span>&#127749; Scenic Views</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Limasawa+Island/@9.9333,125.0167,13z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 6. Sabang Daguitan Beach -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Canigao_Fish_Sanctuary.jpg/1280px-Canigao_Fish_Sanctuary.jpg"
+                     alt="Crystal-clear blue waters of Leyte's coast"
+                     loading="lazy">
+                <span class="badge">Surf Spot</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Canigao_Fish_Sanctuary.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Sabang Daguitan Beach</h3>
+                <div class="location">&#9906; Dulag, Leyte</div>
+                <p class="description">
+                    Leyte's go-to surf destination. Sitting at the coast of Dulag by the mouth of a river, this beach offers surfing, skimboarding, kayaking, and fishing. Enjoy easy river flow or catch ocean waves. The nearby surf camp offers floating huts on the river, rustic cabins, and even a pick-and-pay farm for a unique beach getaway.
+                </p>
+                <div class="highlights">
+                    <span>&#127940; Surfing</span>
+                    <span>&#128674; Kayaking</span>
+                    <span>&#127965; Beach Camp</span>
+                    <span>&#127807; Farm Stay</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Sabang+Daguitan,+Dulag,+Leyte/@10.9528,125.0319,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 7. Mahaba Island -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Kalanggaman_Island_from_a_different_view.jpg/800px-Kalanggaman_Island_from_a_different_view.jpg"
+                     alt="Aerial view of a pristine Leyte island with white sand and turquoise water"
+                     loading="lazy">
+                <span class="badge">Cuatro Islas</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kalanggaman_Island_from_a_different_view.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Mahaba Island</h3>
+                <div class="location">&#9906; Inopacan, Leyte</div>
+                <p class="description">
+                    Part of the Cuatro Islas group, Mahaba Island lives up to its name ("long" in Filipino) with stretches of white sand shores and nearby marine sanctuaries housing diverse fish species. A quiet, unspoiled gem perfect for those who want a peaceful beach experience away from it all.
+                </p>
+                <div class="highlights">
+                    <span>&#127965; White Sand</span>
+                    <span>&#127754; Marine Sanctuary</span>
+                    <span>&#128674; Island Hopping</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Mahaba+Island,+Inopacan,+Leyte/@10.4833,124.6667,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 8. Red Beach (MacArthur Landing) -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Douglas_MacArthur_lands_Leyte1.jpg/1280px-Douglas_MacArthur_lands_Leyte1.jpg"
+                     alt="Historic photo of General MacArthur landing at Red Beach, Palo, Leyte"
+                     loading="lazy">
+                <span class="badge">WWII Historic</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Douglas_MacArthur_lands_Leyte1.jpg">Wikimedia Commons</a> &middot; Public Domain</span>
+            </div>
+            <div class="card-body">
+                <h3>Red Beach (MacArthur Landing)</h3>
+                <div class="location">&#9906; Palo, Leyte</div>
+                <p class="description">
+                    One of the most historically significant beaches in the Philippines. On October 20, 1944, General Douglas MacArthur famously waded ashore here, fulfilling his promise "I shall return." Today, bronze statues commemorate the landing. The beach itself offers calm waters and a moving journey through World War II history.
+                </p>
+                <div class="highlights">
+                    <span>&#128205; War Memorial</span>
+                    <span>&#127965; Sandy Shore</span>
+                    <span>&#128218; Museum Nearby</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/MacArthur+Landing+Memorial+National+Park/@11.16,125.0167,15z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 9. Himokilan Island -->
+        <article class="beach-card">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Hanggang_sa_Muli.jpg/1280px-Hanggang_sa_Muli.jpg"
+                     alt="Beautiful boat departure scene from Canigao Island in Leyte"
+                     loading="lazy">
+                <span class="badge">Cuatro Islas</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Hanggang_sa_Muli.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Himokilan Island</h3>
+                <div class="location">&#9906; Hindang, Leyte</div>
+                <p class="description">
+                    The fourth island of the Cuatro Islas group, Himokilan features a lush green hill perfect for short treks alongside its powdery white shores. The surrounding waters offer beautiful coral formations and diverse marine life, making it a wonderful spot for snorkeling and quiet beach relaxation.
+                </p>
+                <div class="highlights">
+                    <span>&#128694; Hill Trek</span>
+                    <span>&#127965; Powdery Sand</span>
+                    <span>&#127754; Coral Reefs</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/place/Himokilan+Island,+Hindang,+Leyte/@10.4417,124.6917,14z" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>&#127796; Visiting Leyte's Beaches</h3>
+        <p>
+            Fly into Daniel Z. Romualdez Airport in Tacloban City or take a ferry from Cebu to Ormoc City. Most beaches can be reached by boat from local ports in Palompon, Inopacan, Matalom, or Bato.
+        </p>
+        <p>
+            Best season: March to May (dry season). Always check local weather and sea conditions before island trips.
+        </p>
+        <div class="credits">
+            Photos from Wikimedia Commons under Creative Commons licenses.<br>
+            Beach information sourced from local tourism resources.
+        </div>
+    </footer>
+
 </body>
 </html>
