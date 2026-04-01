@@ -352,9 +352,57 @@
                 padding: 2rem;
             }
         }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.3rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.3rem 0.4rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.4rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.1);
+        }
+
+        .lang-switcher button.active {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
     </style>
 </head>
 <body>
+
+    <!-- Language Switcher -->
+    <nav class="lang-switcher" aria-label="Language selector">
+        <button data-lang="en" class="active" title="English" aria-label="English">🇬🇧</button>
+        <button data-lang="no" title="Norsk" aria-label="Norsk">🇳🇴</button>
+        <button data-lang="tl" title="Tagalog" aria-label="Tagalog">🇵🇭</button>
+    </nav>
 
     <!-- Hero -->
     <section class="hero">
@@ -782,6 +830,182 @@
             Beach information sourced from local tourism resources.
         </div>
     </footer>
+
+    <script>
+    (function() {
+        // Cache DOM references
+        var heroTitle = document.querySelector('.hero h1');
+        var heroSubtitle = document.querySelector('.hero .subtitle');
+        var heroTagline = document.querySelector('.hero .tagline');
+        var scrollIndicator = document.querySelector('.scroll-indicator');
+        var introTitle = document.querySelector('.intro h2');
+        var introText = document.querySelector('.intro p');
+        var cards = document.querySelectorAll('.beach-card');
+        var mapLinks = document.querySelectorAll('.map-link');
+        var footerTitle = document.querySelector('footer h3');
+        var footerPs = document.querySelectorAll('footer p');
+        var footerCredits = document.querySelector('footer .credits');
+
+        // Helper: get first non-empty text node
+        function getTextNode(el) {
+            for (var i = 0; i < el.childNodes.length; i++) {
+                var n = el.childNodes[i];
+                if (n.nodeType === 3 && n.textContent.trim()) return n;
+            }
+            return null;
+        }
+
+        // Helper: get last non-empty text node
+        function getLastTextNode(el) {
+            for (var i = el.childNodes.length - 1; i >= 0; i--) {
+                var n = el.childNodes[i];
+                if (n.nodeType === 3 && n.textContent.trim()) return n;
+            }
+            return null;
+        }
+
+        var exploreNode = getTextNode(scrollIndicator);
+        var mapTextNodes = Array.from(mapLinks).map(function(link) { return getLastTextNode(link); });
+
+        // Store English originals
+        var en = {
+            pageTitle: document.title,
+            heroTitle: heroTitle.textContent,
+            heroSubtitle: heroSubtitle.textContent,
+            heroTagline: heroTagline.textContent.trim(),
+            heroExplore: exploreNode ? exploreNode.textContent.trim() : 'Explore',
+            introTitle: introTitle.textContent,
+            introText: introText.textContent.trim(),
+            mapLink: mapTextNodes[0] ? mapTextNodes[0].textContent.trim() : 'View on Google Maps',
+            footerTitle: footerTitle.textContent,
+            footerP1: footerPs[0].textContent.trim(),
+            footerP2: footerPs[1].textContent.trim(),
+            footerCredits: footerCredits.innerHTML,
+            beaches: Array.from(cards).map(function(card) {
+                return {
+                    badge: card.querySelector('.badge').textContent,
+                    desc: card.querySelector('.description').textContent.trim(),
+                    highlights: Array.from(card.querySelectorAll('.highlights span')).map(function(s) { return s.textContent; })
+                };
+            })
+        };
+
+        // Norwegian translations
+        var no = {
+            pageTitle: 'Strendene i Leyte-provinsen, Filippinene',
+            heroTitle: 'Strendene p\u00e5 Leyte',
+            heroSubtitle: '\u00d8stlige Visayas, Filippinene',
+            heroTagline: 'Fra den ikoniske sandbanken p\u00e5 Kalanggaman Island til de rolige strendene ved Cuatro Islas \u2013 oppdag de uber\u00f8rte kystperlene i Leyte-provinsen.',
+            heroExplore: 'Utforsk',
+            introTitle: 'Paradis i \u00d8stlige Visayas',
+            introText: 'Leyte-provinsen, som ligger i hjertet av den filippinske \u00f8ygruppen, er hjem til noen av landets mest fantastiske og uber\u00f8rte kystdestinasjoner. Med pudderaktig hvit sand, krystallklart turkis vann og et rikt marinliv tilbyr disse strendene et stykke tropisk paradis langt fra folkemengdene.',
+            mapLink: 'Vis p\u00e5 Google Maps',
+            footerTitle: '\ud83c\udf34 Bes\u00f8k Leytes strender',
+            footerP1: 'Fly til Daniel Z. Romualdez-flyplassen i Tacloban City, eller ta ferge fra Cebu til Ormoc City. De fleste strendene kan n\u00e5s med b\u00e5t fra lokale havner i Palompon, Inopacan, Matalom eller Bato. Kystbyer som Tanauan, Mayorga, Baybay og Calubian er tilgjengelige med buss eller van fra Tacloban eller Ormoc.',
+            footerP2: 'Beste sesong: mars til mai (t\u00f8rketiden). Sjekk alltid lokale v\u00e6r- og sj\u00f8forhold f\u00f8r \u00f8yturer.',
+            footerCredits: 'Bilder fra Wikimedia Commons under Creative Commons-lisenser.<br>Strandinformasjon hentet fra lokale reiselivsressurser.',
+            beaches: [
+                { badge: '\u2605 Mest Popul\u00e6r', desc: 'En av de mest fotogene \u00f8yene i Filippinene. Kalanggaman er ber\u00f8mt for sin fantastiske 795 meter lange hvite sandbanke som strekker seg ut i krystallklart vann. Oppkalt etter det lokale ordet \u00ablanggam\u00bb (fugl), ligner formen en fugl i flukt. Anerkjent av Lonely Planet som en av de mest pittoreske \u00f8yene i Filippinene \u2013 et must \u00e5 bes\u00f8ke med uber\u00f8rte strender, fargerike korallrev og fantastiske soloppganger.', highlights: ['\ud83c\udfd6\ufe0f Hvit Sandbanke', '\ud83c\udf0a Snorkling', '\u26fa Dykking', '\ud83c\udf19 Camping', '\ud83d\udc22 Havskilpadder'] },
+                { badge: '\u00d8yhopping', desc: 'Digyo Island er kronjuvelen i Cuatro Islas-gruppen, med hvite sandstrender som kan m\u00e5le seg med Boracays ber\u00f8mte strender. De fire \u00f8yene \u2014 Apid, Digyo, Mahaba og Himokilan \u2014 er perfekte for \u00f8yhopping med perleaktig hvit sand, krystallklart vann og utmerket snorkling.', highlights: ['\ud83c\udfd6\ufe0f Hvit Sand', '\u26f5 \u00d8yhopping', '\ud83c\udf0a Snorkling'] },
+                { badge: 'Marint Reservat', desc: 'En tropisk juvel utenfor Leytes s\u00f8rvestlige kyst. Canigao Island har pudderaktig hvit sand og krystallklart vann som myldrer av fargerikt marinliv. Det omliggende marine reservatet gj\u00f8r \u00f8ya ideell for snorkling, dykking, kajakk og vannscooter. Ikke g\u00e5 glipp av den ferske sj\u00f8maten p\u00e5 det lokale fiskemarkedet.', highlights: ['\ud83c\udf0a Snorkling', '\u26fa Dykking', '\ud83c\udf63 Fersk Sj\u00f8mat', '\u26fa Kajakk'] },
+                { badge: 'Skjult Perle', desc: 'En liten, fantastisk holme utenfor Bilirans nordvestlige kyst \u2014 tidligere en underprovins av Leyte. Sambawan har uber\u00f8rte sandstrekninger og et rikt marint \u00f8kosystem perfekt for dykkere. G\u00e5 til \u00f8yas h\u00f8yeste punkt for et panoramautsikt, og bli til en magisk solnedgang over havet.', highlights: ['\u26fa Dykking', '\ud83c\udf05 Solnedgang', '\ud83d\udeb6 Fottur', '\ud83c\udf19 Camping'] },
+                { badge: 'Historisk', desc: 'Et idyllisk sj\u00f8sidem\u00e5l med dyp historisk betydning \u2014 det var her Magellan holdt den f\u00f8rste kristne messen i Asia i 1521. Utover historien har Limasawas strender hvit sand omgitt av krystallklart vann. Fiskereservater gj\u00f8r det ideelt for snorkling og dykking, med fantastisk utsikt til Leyte, Bohol og Mindanao.', highlights: ['\ud83c\udfd6\ufe0f Hvit Sand', '\ud83d\udccd Historisk Sted', '\ud83c\udf0a Snorkling', '\ud83c\udf05 Vakker Utsikt'] },
+                { badge: 'Surfested', desc: 'Leytes beste surfedestinasjon. Ved kysten av Dulag, ved elvemunningen, tilbyr denne stranden surfing, skimboarding, kajakk og fiske. Nyt den rolige elvestr\u00f8mmen eller fang havb\u00f8lger. Den n\u00e6rliggende surfcampen tilbyr flytende hytter p\u00e5 elven, rustikke hytter og til og med en plukk-og-betal-g\u00e5rd for en unik strandferie.', highlights: ['\ud83c\udfc4 Surfing', '\u26f5 Kajakk', '\ud83c\udfd6\ufe0f Strandcamp', '\ud83c\udf3f G\u00e5rdsopphold'] },
+                { badge: 'Cuatro Islas', desc: 'En del av Cuatro Islas-gruppen. Mahaba Island lever opp til sitt navn (\u00abmahaba\u00bb betyr \u00ablang\u00bb p\u00e5 filippinsk) med strekninger av hvite sandstrender og n\u00e6rliggende marine reservater med mangfoldige fiskearter. En rolig, uber\u00f8rt perle perfekt for de som \u00f8nsker en fredelig strandopplevelse borte fra alt.', highlights: ['\ud83c\udfd6\ufe0f Hvit Sand', '\ud83c\udf0a Marint Reservat', '\u26f5 \u00d8yhopping'] },
+                { badge: 'Andre Verdenskrig', desc: 'En av de mest historisk betydningsfulle strendene i Filippinene. Den 20. oktober 1944 vadet General Douglas MacArthur i land her og oppfylte sitt l\u00f8fte \u00abI shall return.\u00bb I dag minnes landingen med bronsestatuer. Stranden har rolig vann og en gripende reise gjennom andre verdenskrigs historie.', highlights: ['\ud83d\udccd Krigsminnesmerke', '\ud83c\udfd6\ufe0f Sandstrand', '\ud83d\udcda Museum i N\u00e6rheten'] },
+                { badge: 'Cuatro Islas', desc: 'Den fjerde \u00f8ya i Cuatro Islas-gruppen. Himokilan har en frodig gr\u00f8nn \u00e5s perfekt for korte turer, sammen med pudderaktige hvite strender. Vannet rundt byr p\u00e5 vakre korallformasjoner og mangfoldig marinliv, noe som gj\u00f8r den til et fantastisk sted for snorkling og rolig strandavslapning.', highlights: ['\ud83d\udeb6 \u00c5stur', '\ud83c\udfd6\ufe0f Pudderaktig Sand', '\ud83c\udf0a Korallrev'] },
+                { badge: 'Utenfor Allfarvei', desc: 'En rolig og stort sett uoppdaget kyststrekning i nord-Leyte. Pantalan Beach byr p\u00e5 rolig turkis vann og en fredelig atmosf\u00e6re langt fra turistmengdene. De stille strendene og milde b\u00f8lgene gj\u00f8r den til et perfekt tilfluktssted for de som s\u00f8ker ensomhet og uber\u00f8rt naturskj\u00f8nnhet.', highlights: ['\u2600\ufe0f Avsidesliggende', '\ud83c\udf0a Rolig Vann', '\ud83d\udcf7 Vakker Utsikt'] },
+                { badge: 'Skimboard-hovedstad', desc: 'Kjent som \u00abSkimboard-hovedstaden i Filippinene\u00bb har Tanauans kystlinje langs San Pedro-bukta v\u00e6rt vertskap for skimboard-konkurranser siden 2002. Den brede, flate strandlinjen med jevne, grunne b\u00f8lger skaper ideelle forhold for denne spennende vannsporten og tiltrekker ut\u00f8vere fra hele landet.', highlights: ['\ud83c\udfc4 Skimboarding', '\ud83c\udf0a San Pedro-bukta', '\ud83c\udfc6 Konkurranser'] },
+                { badge: 'Stille Tilflukt', desc: 'Gjemt langs Leytes \u00f8stkyst er Mayorga Beach en rolig kyststrekning der lokalbefolkningen samles ved solnedgang mens fiskerne bringer inn dagens fangst. Uten resorter eller folkemengder gir den et autentisk innblikk i livet ved kysten og et fredelig sted \u00e5 se horisonten der Stillehavet m\u00f8ter San Pedro-bukta.', highlights: ['\ud83c\udf05 Solnedgang', '\u26f5 Fiskerlandsby', '\u2600\ufe0f Autentisk'] },
+                { badge: 'Universitetsby', desc: 'Strandpromenaden i Baybay City strekker seg langs Camotes-havet p\u00e5 Leytes vestkyst, st\u00f8ttet av den livlige universitetsbyen som er hjem til Visayas State University. Strandgata v\u00e5kner til liv i skumringen med matboder, studenter og familier som nyter den luftige strandpromenaden og dramatiske solnedganger over havet.', highlights: ['\ud83c\udf05 Solnedganger', '\ud83c\udf74 Gatemat', '\ud83c\udfd9\ufe0f Strandpromenade'] },
+                { badge: 'Nordspissen', desc: 'P\u00e5 den aller nordligste spissen av Leyte bel\u00f8nner kystbyen Calubian den eventyrlystne med spektakul\u00e6re solnedganger som f\u00e5 turister noensinne opplever. Vendt mot San Bernardino-stredet med utsikt mot Samar, tilbyr den stille strandpromenaden og omliggende mangroveomr\u00e5der et avsidesliggende, uber\u00f8rt hj\u00f8rne av Leyte som f\u00f8les milevis fra alt.', highlights: ['\ud83c\udf05 Episk Solnedgang', '\ud83c\udf33 Mangrover', '\ud83d\uddfa\ufe0f Avsidesliggende'] }
+            ]
+        };
+
+        // Tagalog translations
+        var tl = {
+            pageTitle: 'Mga Dalampasigan ng Lalawigan ng Leyte, Pilipinas',
+            heroTitle: 'Mga Dalampasigan ng Leyte',
+            heroSubtitle: 'Silangang Visayas, Pilipinas',
+            heroTagline: 'Mula sa sikat na sandbar ng Kalanggaman Island hanggang sa tahimik na dalampasigan ng Cuatro Islas, tuklasin ang dalisay na mga hiyas sa baybayin ng lalawigan ng Leyte.',
+            heroExplore: 'Tuklasin',
+            introTitle: 'Paraiso sa Silangang Visayas',
+            introText: 'Ang lalawigan ng Leyte, na matatagpuan sa gitna ng kapuluan ng Pilipinas, ay tahanan ng ilan sa mga pinakamaganda at di-nasirang destinasyon sa baybayin ng bansa. Sa maputing buhangin, kristal na asul na tubig, at masaganang buhay-dagat, ang mga dalampasigan na ito ay nag-aalok ng tropikong paraiso na malayo sa karamihan.',
+            mapLink: 'Tingnan sa Google Maps',
+            footerTitle: '\ud83c\udf34 Pagbisita sa mga Dalampasigan ng Leyte',
+            footerP1: 'Lumipad papuntang Daniel Z. Romualdez Airport sa Tacloban City o sumakay ng ferry mula Cebu papuntang Ormoc City. Karamihan sa mga dalampasigan ay maabot sa bangka mula sa mga lokal na daungan sa Palompon, Inopacan, Matalom, o Bato. Ang mga baybaying bayan tulad ng Tanauan, Mayorga, Baybay, at Calubian ay maabot sa bus o van mula Tacloban o Ormoc.',
+            footerP2: 'Pinakamagandang panahon: Marso hanggang Mayo (tag-init). Palaging suriin ang lagay ng panahon at dagat bago mag-island trip.',
+            footerCredits: 'Mga larawan mula sa Wikimedia Commons sa ilalim ng Creative Commons licenses.<br>Impormasyon sa dalampasigan mula sa mga lokal na mapagkukunan ng turismo.',
+            beaches: [
+                { badge: '\u2605 Pinakasikat', desc: 'Isa sa mga pinakapotogenic na isla sa Pilipinas, ang Kalanggaman ay sikat sa kahanga-hangang 795-metrong puting sandbar na umaabot sa kristal na tubig. Ipinangalan sa salitang lokal na \u201clanggam\u201d (ibon), ang hugis nito ay kahawig ng ibong lumilipad. Kinikilala ng Lonely Planet bilang isa sa pinakamagandang isla sa Pilipinas, ito ay destinasyong dapat bisitahin na may malilinis na dalampasigan, makulay na bahura, at kahanga-hangang pagsikat ng araw.', highlights: ['\ud83c\udfd6\ufe0f Puting Sandbar', '\ud83c\udf0a Snorkeling', '\u26fa Scuba Diving', '\ud83c\udf19 Camping', '\ud83d\udc22 Mga Pawikan'] },
+                { badge: 'Island Hopping', desc: 'Ang Digyo Island ang pinakamagandang isla sa grupo ng Cuatro Islas, na may puting buhangin na katulad ng sikat na dalampasigan ng Boracay. Ang apat na isla \u2014 Apid, Digyo, Mahaba, at Himokilan \u2014 ay perpekto para sa island-hopping na may maputing buhangin, kristal na tubig, at mahusay na snorkeling.', highlights: ['\ud83c\udfd6\ufe0f Puting Buhangin', '\u26f5 Island Hopping', '\ud83c\udf0a Snorkeling'] },
+                { badge: 'Santuwaryo ng Dagat', desc: 'Isang tropikong hiyas sa timog-kanlurang baybayin ng Leyte, ang Canigao Island ay may maputing buhangin at kristal na tubig na puno ng makulay na buhay-dagat. Ang nakapalibot na marine sanctuary ay perpekto para sa snorkeling, scuba diving, kayaking, at jet skiing. Huwag palampasin ang sariwang seafood sa lokal na palengke.', highlights: ['\ud83c\udf0a Snorkeling', '\u26fa Diving', '\ud83c\udf63 Sariwang Seafood', '\u26fa Kayaking'] },
+                { badge: 'Nakatagong Yaman', desc: 'Isang maliit at kahanga-hangang isleta sa hilagang-kanlurang baybayin ng Biliran \u2014 dating sub-probinsya ng Leyte. Ang Sambawan ay may malilinis na buhanginan at masaganang ekosistema sa dagat na perpekto para sa mga diver. Umakyat sa pinakamataas na bahagi ng isla para sa panoramic na tanawin, at manatili para sa mahiwagang paglubog ng araw.', highlights: ['\u26fa Scuba Diving', '\ud83c\udf05 Paglubog ng Araw', '\ud83d\udeb6 Trekking', '\ud83c\udf19 Camping'] },
+                { badge: 'Makasaysayan', desc: 'Isang idylikong destinasyon sa dagat na may malalim na kahalagahang pangkasaysayan \u2014 dito ginanap ni Magellan ang unang misang Kristiyano sa Asya noong 1521. Bukod sa kasaysayan, ang mga dalampasigan ng Limasawa ay may puting buhangin na napapalibutan ng kristal na tubig. Ang mga fish sanctuary ay perpekto para sa snorkeling at scuba diving, na may kahanga-hangang tanawin ng Leyte, Bohol, at Mindanao.', highlights: ['\ud83c\udfd6\ufe0f Puting Buhangin', '\ud83d\udccd Makasaysayang Lugar', '\ud83c\udf0a Snorkeling', '\ud83c\udf05 Magandang Tanawin'] },
+                { badge: 'Surf Spot', desc: 'Ang pangunahing surf destination ng Leyte. Sa baybayin ng Dulag sa tabi ng ilog, ang dalampasigan na ito ay nag-aalok ng surfing, skimboarding, kayaking, at pangingisda. Masiyahan sa banayad na agos ng ilog o hulihin ang alon ng dagat. Ang kalapit na surf camp ay may mga lutang na kubo sa ilog, rustic na cabin, at pick-and-pay farm para sa kakaibang beach getaway.', highlights: ['\ud83c\udfc4 Surfing', '\u26f5 Kayaking', '\ud83c\udfd6\ufe0f Beach Camp', '\ud83c\udf3f Farm Stay'] },
+                { badge: 'Cuatro Islas', desc: 'Bahagi ng grupo ng Cuatro Islas, ang Mahaba Island ay tumutugon sa pangalan nito (\u201cmahaba\u201d sa Filipino) na may mahabang puting buhanginan at kalapit na marine sanctuary na may iba\'t ibang uri ng isda. Isang tahimik at di-nasirang perlas na perpekto para sa mga naghahanap ng mapayapang karanasan sa dalampasigan.', highlights: ['\ud83c\udfd6\ufe0f Puting Buhangin', '\ud83c\udf0a Marine Sanctuary', '\u26f5 Island Hopping'] },
+                { badge: 'Makasaysayang WWII', desc: 'Isa sa pinakamahalaga sa kasaysayang dalampasigan sa Pilipinas. Noong Oktubre 20, 1944, lumusong sa tubig si General Douglas MacArthur dito, tinupad ang kanyang pangakong \u201cI shall return.\u201d Ngayon, mga bronse na estatwa ang nagpapagunita sa landing. Ang dalampasigan mismo ay may kalmadong tubig at isang nakaka-antig na paglalakbay sa kasaysayan ng Ikalawang Digmaang Pandaigdig.', highlights: ['\ud83d\udccd War Memorial', '\ud83c\udfd6\ufe0f Buhanginan', '\ud83d\udcda Kalapit na Museo'] },
+                { badge: 'Cuatro Islas', desc: 'Ang ikaapat na isla ng grupo ng Cuatro Islas, ang Himokilan ay may luntiang burol na perpekto para sa maikling lakad kasama ang maputing dalampasigan. Ang nakapalibot na tubig ay may magagandang coral formation at iba\'t ibang buhay-dagat, na ginagawa itong kahanga-hangang lugar para sa snorkeling at tahimik na pamamahinga sa dalampasigan.', highlights: ['\ud83d\udeb6 Lakad sa Burol', '\ud83c\udfd6\ufe0f Malambot na Buhangin', '\ud83c\udf0a Mga Bahura'] },
+                { badge: 'Liblib na Lugar', desc: 'Isang tahimik at halos di-natuklasang baybayin sa hilagang Leyte, ang Pantalan Beach ay nag-aalok ng kalmadong turkesang tubig at mapayapang kapaligiran na malayo sa mga turista. Ang tahimik na dalampasigan at banayad na alon ay perpekto para sa mga naghahanap ng katahimikan at di-nasirang ganda ng kalikasan.', highlights: ['\u2600\ufe0f Tahimik', '\ud83c\udf0a Kalmadong Tubig', '\ud83d\udcf7 Magandang Tanawin'] },
+                { badge: 'Kabisera ng Skimboarding', desc: 'Kilala bilang \u201cSkimboarding Capital ng Pilipinas,\u201d ang baybayin ng Tanauan sa San Pedro Bay ay nag-host ng mga kompetisyon sa skimboarding simula noong 2002. Ang malawak at patag na dalampasigan na may pare-parehong mababaw na alon ay lumilikha ng perpektong kondisyon para sa kapana-panabik na water sport na ito.', highlights: ['\ud83c\udfc4 Skimboarding', '\ud83c\udf0a San Pedro Bay', '\ud83c\udfc6 Mga Kompetisyon'] },
+                { badge: 'Tahimik na Kanlungan', desc: 'Nakatago sa silangang baybayin ng Leyte, ang Mayorga Beach ay isang tahimik na dalampasigan kung saan nagtitipon ang mga lokal tuwing paglubog ng araw habang dinadala ng mga mangingisda ang kanilang huli. Walang resort o maraming tao, nag-aalok ito ng tunay na sulyap sa buhay ng baybaying nayon at mapayapang lugar para panoorin ang abot-tanaw.', highlights: ['\ud83c\udf05 Paglubog ng Araw', '\u26f5 Nayon ng Mangingisda', '\u2600\ufe0f Tunay na Karanasan'] },
+                { badge: 'Bayan ng Unibersidad', desc: 'Ang coastal promenade ng Baybay City ay nasa baybayin ng Camotes Sea sa kanlurang bahagi ng Leyte, sa likod ng masigla na bayan ng unibersidad na tahanan ng Visayas State University. Ang beach area ay bumubuhay sa takipsilim na may mga tindahan ng pagkain, mga estudyante, at mga pamilyang nag-eenjoy sa mahanging waterfront at kahanga-hangang paglubog ng araw.', highlights: ['\ud83c\udf05 Mga Paglubog ng Araw', '\ud83c\udf74 Street Food', '\ud83c\udfd9\ufe0f Waterfront'] },
+                { badge: 'Hilagang Dulo', desc: 'Sa pinakadulong hilaga ng Leyte, ang baybaying bayan ng Calubian ay nagbibigay-gantimpala sa mga mapangahas na may kahanga-hangang paglubog ng araw na kakaunting turista ang nakakakita. Nakaharap sa San Bernardino Strait na may tanawin papuntang Samar, ang tahimik na waterfront at nakapalibot na mangrove ay nag-aalok ng liblib at di-nasirang sulok ng Leyte.', highlights: ['\ud83c\udf05 Kahanga-hangang Sunset', '\ud83c\udf33 Mga Mangrove', '\ud83d\uddfa\ufe0f Liblib'] }
+            ]
+        };
+
+        var TX = { en: en, no: no, tl: tl };
+
+        function setLanguage(lang) {
+            var t = TX[lang];
+            if (!t) return;
+
+            document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+            document.title = t.pageTitle;
+            heroTitle.textContent = t.heroTitle;
+            heroSubtitle.textContent = t.heroSubtitle;
+            heroTagline.textContent = t.heroTagline;
+            if (exploreNode) exploreNode.textContent = ' ' + t.heroExplore + ' ';
+            introTitle.textContent = t.introTitle;
+            introText.textContent = t.introText;
+
+            mapTextNodes.forEach(function(node) {
+                if (node) node.textContent = ' ' + t.mapLink + ' ';
+            });
+
+            Array.from(cards).forEach(function(card, i) {
+                var b = t.beaches[i];
+                card.querySelector('.badge').textContent = b.badge;
+                card.querySelector('.description').textContent = b.desc;
+                var spans = card.querySelectorAll('.highlights span');
+                b.highlights.forEach(function(h, j) { if (spans[j]) spans[j].textContent = h; });
+            });
+
+            footerTitle.textContent = t.footerTitle;
+            footerPs[0].textContent = t.footerP1;
+            footerPs[1].textContent = t.footerP2;
+            footerCredits.innerHTML = t.footerCredits;
+
+            document.querySelectorAll('.lang-switcher button').forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            try { localStorage.setItem('beach-lang', lang); } catch(e) {}
+        }
+
+        // Event delegation for language switcher
+        document.querySelector('.lang-switcher').addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-lang]');
+            if (btn) setLanguage(btn.dataset.lang);
+        });
+
+        // Load saved language preference
+        try {
+            var saved = localStorage.getItem('beach-lang');
+            if (saved && saved !== 'en' && TX[saved]) setLanguage(saved);
+        } catch(e) {}
+    })();
+    </script>
 
 </body>
 </html>
