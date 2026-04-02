@@ -1,0 +1,7 @@
+# Beach Explorer - robots.txt
+# TODO: Update sitemap URL to your custom domain
+
+User-agent: *
+Allow: /
+
+Sitemap: https://himmelfisk.github.io/beaches/sitemap.xml
