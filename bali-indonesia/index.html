@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Beaches in Bali, Indonesia — Travel Guide | Beach Explorer</title>
+    <meta name="description" content="Discover the 12 best beaches in Bali, Indonesia. Explore Kuta, Seminyak, Uluwatu, Kelingking Beach, and hidden gems like Bias Tugel and Green Bowl Beach.">
+    <meta name="keywords" content="beaches Bali Indonesia, Bali travel guide, Kuta Beach, Uluwatu surfing, Nusa Penida Kelingking Beach, hidden beaches Bali, best beaches Indonesia">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://himmelfisk.github.io/beaches/bali-indonesia/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://himmelfisk.github.io/beaches/bali-indonesia/">
+    <meta property="og:title" content="Best Beaches in Bali, Indonesia — Travel Guide">
+    <meta property="og:description" content="Discover the 12 best beaches in Bali, Indonesia. From Kuta sunsets to Kelingking cliffs and hidden gems.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1200px-Kuta_Beach_%286924448550%29.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Beach Explorer">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Best Beaches in Bali, Indonesia — Travel Guide">
+    <meta name="twitter:description" content="Discover the 12 best beaches in Bali, Indonesia. From Kuta sunsets to Kelingking cliffs and hidden gems.">
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1200px-Kuta_Beach_%286924448550%29.jpg">
+
+    <link rel="preload" as="image" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1920px-Kuta_Beach_%286924448550%29.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sand: #f5e6d3;
+            --ocean-deep: #0c2d48;
+            --ocean-mid: #145374;
+            --ocean-light: #2e8bc0;
+            --foam: #b1d4e0;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #555;
+            --coral: #ff6b6b;
+            --sunset: #f7a072;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--sand);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1920px-Kalanggaman_Island.jpg') center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--sand), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--foam);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .scroll-indicator {
+            display: inline-block;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Intro Section */
+        .intro {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Beach Cards Grid */
+        .beaches {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .beach-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .beach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+        }
+
+        .beach-card .image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+        }
+
+        .beach-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .beach-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .beach-card .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(12, 45, 72, 0.85);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .beach-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .beach-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .beach-card .location {
+            font-size: 0.85rem;
+            color: var(--ocean-light);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .beach-card .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights span {
+            background: var(--sand);
+            color: var(--ocean-mid);
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--ocean-mid), var(--ocean-light));
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .map-link:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .map-link svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .distance-badge {
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.82rem;
+            color: var(--ocean-mid);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, rgba(177,212,224,0.3), rgba(46,139,192,0.1));
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .distance-badge.visible {
+            display: inline-flex;
+        }
+
+        .distance-badge svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Location prompt banner */
+        .location-banner {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: var(--white);
+            text-align: center;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .location-banner.hidden {
+            display: none;
+        }
+
+        .location-banner p {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .location-banner button {
+            border: none;
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .location-banner button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-allow {
+            background: var(--white);
+            color: var(--ocean-deep);
+        }
+
+        .btn-dismiss {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        /* Map section */
+        .map-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .map-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            height: 500px;
+        }
+
+        .map-container .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-container .leaflet-popup-content {
+            margin: 12px 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 1024px) {
+            .map-section {
+                padding: 0 2rem 5rem;
+            }
+            .map-container {
+                height: 550px;
+            }
+        }
+
+        /* Photo attribution */
+        .photo-credit {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.7);
+            background: rgba(0,0,0,0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            backdrop-filter: blur(2px);
+        }
+
+        .photo-credit a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ocean-deep);
+            color: var(--foam);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto 0.5rem;
+        }
+
+        footer .credits {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: rgba(177, 212, 224, 0.6);
+        }
+
+        /* Tablet */
+        @media (min-width: 640px) {
+            .beaches {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 2;
+            }
+
+            .beach-card.featured .image-container {
+                aspect-ratio: 21 / 9;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .beaches {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                padding: 1rem 2rem 5rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 3;
+            }
+
+            .beach-card.featured .card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .intro {
+                padding: 5rem 2rem 3rem;
+            }
+
+            .beach-card .card-body {
+                padding: 2rem;
+            }
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.3rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.3rem 0.4rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.4rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.1);
+        }
+
+        .lang-switcher button.active {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .faq-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 1.2rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--ocean-mid);
+            font-size: 1.05rem;
+            transition: background 0.2s ease;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--ocean-light);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item[open] summary::after {
+            content: '−';
+        }
+
+        .faq-item summary:hover {
+            background: rgba(46, 139, 192, 0.05);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+        }
+
+        .breadcrumb a {
+            color: var(--foam);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        .breadcrumb .separator {
+            color: rgba(177, 212, 224, 0.5);
+        }
+
+        .breadcrumb .current {
+            color: var(--white);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../">&#127758; Beach Explorer</a>
+        <span class="separator">›</span>
+        <span class="current">Bali</span>
+    </nav>
+
+    <div class="location-banner" id="locationBanner">
+        <p>&#128205; Enable location to see distances to each beach</p>
+        <button class="btn-allow" id="btnAllowLocation">Allow Location</button>
+        <button class="btn-dismiss" id="btnDismissLocation">No Thanks</button>
+    </div>
+
+    <nav class="lang-switcher" aria-label="Language selector">
+        <button data-lang="en" class="active" title="English" aria-label="English">🇬🇧</button>
+        <button data-lang="no" title="Norsk" aria-label="Norsk">🇳🇴</button>
+        <button data-lang="tl" title="Tagalog" aria-label="Tagalog">🇵🇭</button>
+    </nav>
+
+    <section class="hero" style="background: linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1920px-Kuta_Beach_%286924448550%29.jpg') center/cover no-repeat;">
+        <div class="hero-content">
+            <h1>Beaches of Bali</h1>
+            <p class="subtitle">Island of the Gods, Indonesia</p>
+            <p class="tagline">
+                From the legendary sunsets of Kuta to the dramatic cliffs of Uluwatu and the hidden coves of the Bukit Peninsula &mdash; discover beaches for every type of traveler on the Island of the Gods.
+            </p>
+            <a href="#beaches" class="scroll-indicator">
+                Explore
+                <span>&#8595;</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>Island of the Gods</h2>
+        <p>
+            Bali's coastline is as diverse as its culture. The west coast delivers legendary sunsets and world-class surfing, while the east coast offers sunrise views and pristine diving. The dramatic Bukit Peninsula hides secret beaches beneath towering cliffs, and the offshore island of Nusa Penida features some of the most Instagram-famous viewpoints on Earth. From luxury beach clubs to deserted volcanic sand shores, Bali truly has a beach for everyone.
+        </p>
+    </section>
+
+    <section id="beaches" class="beaches">
+
+        <article class="beach-card featured" data-lat="-8.7184" data-lng="115.1686">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg" alt="Panoramic view of Kuta Beach with golden sand and surfers in Bali, Indonesia" loading="lazy">
+                <span class="badge">★ Most Famous</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_(6924448550).jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Kuta Beach</h3>
+                <div class="location">&#9906; Kuta, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Bali's most iconic beach, Kuta is a vibrant stretch of golden sand famous for spectacular sunsets, beginner-friendly surf breaks, and a lively nightlife scene. Once a quiet fishing village, it's now the bustling heart of Bali's tourism. The wide, flat beach is perfect for surfing lessons, beach football, and watching legendary Balinese sunsets paint the sky in shades of orange and purple.</p>
+                <div class="highlights">
+                    <span>🏄 Surfing</span>
+                    <span>🌅 Legendary Sunsets</span>
+                    <span>🏖️ Golden Sand</span>
+                    <span>🎉 Nightlife</span>
+                    <span>�� Photography</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Kuta+Beach+Kuta%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.6891" data-lng="115.1568">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg" alt="Seminyak Beach with trendy beach clubs and sunset views in Bali" loading="lazy">
+                <span class="badge">Beach Clubs</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Seminyak,_Bali.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Seminyak Beach</h3>
+                <div class="location">&#9906; Seminyak, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">The upscale continuation of Kuta Beach, Seminyak is where Bali's chic beach club culture comes alive. Home to world-famous spots like Potato Head and Ku De Ta, the beach combines luxury lounging with beautiful golden sand. The surf is bigger here than at Kuta, and the sunset views are equally spectacular. Designer boutiques and fine dining line the streets behind the beach.</p>
+                <div class="highlights">
+                    <span>🍹 Beach Clubs</span>
+                    <span>🌅 Sunsets</span>
+                    <span>🏄 Surfing</span>
+                    <span>🛍️ Boutiques</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Seminyak+Beach+Seminyak%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.8291" data-lng="115.0849">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg" alt="Dramatic cliffside beach at Uluwatu with world-class surf breaks in Bali" loading="lazy">
+                <span class="badge">Surf Mecca</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_viewed_from_Seminyak.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Uluwatu Beach</h3>
+                <div class="location">&#9906; Uluwatu, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Perched beneath dramatic limestone cliffs on Bali's Bukit Peninsula, Uluwatu is a legendary surf destination with powerful, world-class waves. The clifftop Uluwatu Temple, with its resident monkeys and stunning ocean views, hosts the famous Kecak fire dance at sunset. Access the beach via a cave entrance carved into the cliff, emerging onto pristine sand surrounded by towering rock walls.</p>
+                <div class="highlights">
+                    <span>🏄 World-Class Surf</span>
+                    <span>🛕 Uluwatu Temple</span>
+                    <span>🔥 Kecak Dance</span>
+                    <span>🌅 Cliff Sunsets</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Uluwatu+Beach+Uluwatu%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.75" data-lng="115.4667">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg" alt="The iconic T-Rex shaped cliff at Kelingking Beach, Nusa Penida, Bali" loading="lazy">
+                <span class="badge">T-Rex Cliff</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Wonderfull_Nusa_Penida.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Kelingking Beach</h3>
+                <div class="location">&#9906; Nusa Penida, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Nusa Penida's most iconic viewpoint, Kelingking Beach features a dramatic cliff formation shaped like a Tyrannosaurus Rex head plunging into turquoise waters. The viewpoint at the top is breathtaking, but the adventurous can descend a steep, rugged trail to reach the pristine white sand beach below. Few tourists make it down, so the beach itself remains a virtually private paradise.</p>
+                <div class="highlights">
+                    <span>📸 Iconic Views</span>
+                    <span>🏖️ White Sand</span>
+                    <span>🥾 Adventure Trail</span>
+                    <span>🏝️ Secluded</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Kelingking+Beach+Nusa+Penida%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.8" data-lng="115.2333">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg" alt="Pristine white sand beach at Nusa Dua resort area in Bali" loading="lazy">
+                <span class="badge">Luxury Resort</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_(6924448550).jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Nusa Dua Beach</h3>
+                <div class="location">&#9906; Nusa Dua, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Bali's premier luxury beach enclave, Nusa Dua features manicured white sand beaches sheltered by a reef that creates calm, crystal-clear swimming conditions year-round. Home to five-star resorts, championship golf courses, and water sports centers, it's the complete opposite of Kuta's chaos. The protected waters make it ideal for families and those seeking a more refined Bali experience.</p>
+                <div class="highlights">
+                    <span>🏖️ White Sand</span>
+                    <span>🏊 Calm Waters</span>
+                    <span>⛳ Golf Courses</span>
+                    <span>🐠 Water Sports</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Nusa+Dua+Beach+Nusa+Dua%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.8117" data-lng="115.1">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg" alt="Small cove of Padang Padang Beach with turquoise waters in Bali" loading="lazy">
+                <span class="badge">Movie Beach</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Seminyak,_Bali.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Padang Padang Beach</h3>
+                <div class="location">&#9906; Uluwatu, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Made famous by the movie Eat Pray Love, Padang Padang is a charming pocket beach accessed through a narrow gap in the cliffs. The small, sheltered cove features powdery white sand, turquoise water, and excellent swimming. During the surf season (July–September), the beach's left-hand reef break hosts the annual Rip Curl Cup, attracting elite surfers from around the world.</p>
+                <div class="highlights">
+                    <span>🎬 Movie Location</span>
+                    <span>🏖️ Pocket Beach</span>
+                    <span>🏄 Surf Competition</span>
+                    <span>💎 Turquoise Water</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Padang+Padang+Beach+Uluwatu%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.7833" data-lng="115.1667">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg" alt="Jimbaran Bay beach with seafood restaurants at sunset in Bali" loading="lazy">
+                <span class="badge">Seafood Sunset</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_viewed_from_Seminyak.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Jimbaran Bay</h3>
+                <div class="location">&#9906; Jimbaran, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">A sweeping crescent of golden sand where Bali's most legendary dining experience takes place every evening: freshly grilled seafood at tables set directly on the beach as the sun sinks into the Indian Ocean. By day, the calm, shallow waters are perfect for swimming, and the bay offers stunning views of the airport runway and distant Bukit cliffs.</p>
+                <div class="highlights">
+                    <span>🍤 Beach Seafood</span>
+                    <span>🌅 Sunset Dining</span>
+                    <span>🏊 Calm Waters</span>
+                    <span>📸 Scenic Bay</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Jimbaran+Bay+Jimbaran%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.5333" data-lng="115.5167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg" alt="Hidden white sand cove of Bias Tugel Beach near Padangbai, Bali" loading="lazy">
+                <span class="badge">Hidden Gem</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Wonderfull_Nusa_Penida.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Bias Tugel Beach</h3>
+                <div class="location">&#9906; Padangbai, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Nicknamed 'Secret Beach' or 'White Sand Beach,' Bias Tugel is a hidden paradise just a short walk from the Padangbai ferry port. Accessed through a narrow trail through the jungle, this small white sand cove with crystal-clear turquoise waters is one of Bali's best-kept secrets. Few tourists find it, making it perfect for a peaceful day of swimming and sunbathing.</p>
+                <div class="highlights">
+                    <span>🏝️ Secret Beach</span>
+                    <span>🏖️ White Sand</span>
+                    <span>💎 Crystal Water</span>
+                    <span>🌴 Secluded</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Bias+Tugel+Beach+Padangbai%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.8333" data-lng="115.2">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg" alt="Secluded Green Bowl Beach at the bottom of limestone cliffs in Bali" loading="lazy">
+                <span class="badge">Off the Beaten Path</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_(6924448550).jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Green Bowl Beach</h3>
+                <div class="location">&#9906; Ungasan, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">One of Bali's most secluded beaches, Green Bowl requires descending over 300 steep steps carved into a limestone cliff. The reward is a pristine, rarely-visited crescent of white sand backed by caves where bats roost by day. At low tide, the reef creates natural tide pools perfect for exploring marine life. The climb back up is challenging but the solitude makes it worthwhile.</p>
+                <div class="highlights">
+                    <span>🥾 300+ Steps</span>
+                    <span>🏖️ Secluded Beach</span>
+                    <span>🦇 Cave Exploration</span>
+                    <span>🐚 Tide Pools</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Green+Bowl+Beach+Ungasan%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.6833" data-lng="115.2667">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg" alt="Peaceful sunrise at Sanur Beach with traditional boats in Bali" loading="lazy">
+                <span class="badge">Sunrise Coast</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Seminyak,_Bali.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Sanur Beach</h3>
+                <div class="location">&#9906; Sanur, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">Bali's original tourist beach and the gateway to Nusa Penida. Sanur is the calm, cultured alternative to Kuta's party scene. The reef-protected waters are gentle and shallow, perfect for families and beginner water sports. Wake early for stunning sunrises over Mount Agung, then stroll the paved beachfront path past art galleries, temples, and colorful traditional fishing boats.</p>
+                <div class="highlights">
+                    <span>🌅 Sunrises</span>
+                    <span>🛥️ Nusa Penida Gateway</span>
+                    <span>🏊 Calm Waters</span>
+                    <span>🎨 Art Galleries</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Sanur+Beach+Sanur%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.7917" data-lng="115.1167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg" alt="Balangan Beach with golden sand and surf break in Bali's Bukit Peninsula" loading="lazy">
+                <span class="badge">Surfer's Paradise</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Kuta_Beach_viewed_from_Seminyak.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Balangan Beach</h3>
+                <div class="location">&#9906; Bukit Peninsula, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">A golden crescent of sand nestled between Bali's dramatic southern cliffs, Balangan is a favorite among intermediate surfers and those seeking a more laid-back Bukit Peninsula vibe. The beach is dotted with rustic warungs (local cafes) built right on the sand, serving cold drinks and nasi goreng while you watch surfers ride the left-hand reef break. At low tide, fascinating rock formations and tide pools emerge.</p>
+                <div class="highlights">
+                    <span>🏄 Surf Break</span>
+                    <span>🍛 Beach Warungs</span>
+                    <span>🌅 Sunset Views</span>
+                    <span>🐚 Tide Pools</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Balangan+Beach+Bukit+Peninsula%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <article class="beach-card" data-lat="-8.35" data-lng="115.65">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg" alt="Black volcanic sand beach at Amed with Mount Agung in the background, Bali" loading="lazy">
+                <span class="badge">Diving & Snorkeling</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Wonderfull_Nusa_Penida.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Amed Beach</h3>
+                <div class="location">&#9906; Karangasem, Bali</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">A peaceful stretch of volcanic black sand beach in northeast Bali, Amed is a diver's paradise with pristine coral gardens accessible right from the shore. The USAT Liberty shipwreck at nearby Tulamben is one of the world's most famous dive sites. With Mount Agung as a dramatic backdrop and traditional salt farming still practiced along the coast, Amed offers authentic, off-the-beaten-path Bali.</p>
+                <div class="highlights">
+                    <span>🤿 Shore Diving</span>
+                    <span>🚢 USAT Liberty Wreck</span>
+                    <span>🌋 Mount Agung Views</span>
+                    <span>🧂 Salt Farming</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Amed+Beach+Karangasem%2C+Bali" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+    </section>
+
+    <section class="map-section">
+        <h2 id="mapTitle">&#127961; Beach Map</h2>
+        <div class="map-container" id="beachMap"></div>
+    </section>
+
+    <section class="faq-section">
+        <h2>&#10067; Frequently Asked Questions</h2>
+        <details class="faq-item">
+            <summary>What is the best time to visit beaches in Bali?</summary>
+            <div class="faq-answer">The best time to visit Bali's beaches is during the dry season from April to October, when you can expect sunny skies, low humidity, and calm seas. The wet season from November to March brings occasional tropical rain but also fewer tourists and lower prices. The surf season peaks from June to September on Bali's western coast.</div>
+        </details>
+        <details class="faq-item">
+            <summary>How do I get to Bali, Indonesia?</summary>
+            <div class="faq-answer">Bali's Ngurah Rai International Airport (DPS) in Denpasar receives direct flights from major cities across Asia, Australia, and the Middle East. From the airport, beaches like Kuta and Seminyak are just 15–30 minutes away by taxi. For Nusa Penida, take a fast boat from Sanur (30–45 minutes). For Amed, drive about 2.5–3 hours east.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Which is the most popular beach in Bali?</summary>
+            <div class="faq-answer">Kuta Beach is Bali's most famous and visited beach, known for its wide golden sand, beginner surf breaks, and legendary sunsets. For a more upscale experience, Seminyak Beach offers trendy beach clubs. For dramatic scenery, Kelingking Beach on Nusa Penida and Uluwatu's clifftop views are the most photographed.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Is it safe to swim at Bali's beaches?</summary>
+            <div class="faq-answer">Safety varies by beach. Nusa Dua, Sanur, and Jimbaran have calm, reef-protected waters ideal for swimming and families. Kuta and Seminyak have stronger currents — always swim between the flags. Uluwatu and Padang Padang can have powerful waves. Kelingking Beach has very strong currents and swimming is risky.</div>
+        </details>
+        <details class="faq-item">
+            <summary>What hidden beach gems should I visit in Bali?</summary>
+            <div class="faq-answer">Bias Tugel (Secret Beach) near Padangbai is a hidden white sand cove. Green Bowl Beach requires 300+ steps but rewards with complete solitude. Balangan Beach on the Bukit Peninsula has charming warungs. Amed on the northeast coast offers black sand beaches with incredible shore diving and a peaceful, authentic vibe far from the crowds.</div>
+        </details>
+        <details class="faq-item">
+            <summary>How much does a beach holiday in Bali cost?</summary>
+            <div class="faq-answer">Bali caters to all budgets. Budget accommodation starts at USD 10–20/night for guesthouses. Mid-range hotels cost USD 40–100/night. Luxury resorts in Nusa Dua range from USD 150–500+/night. A typical meal costs USD 2–5 at local warungs, USD 10–25 at restaurants. Scooter rental is about USD 5/day.</div>
+        </details>
+        <details class="faq-item">
+            <summary>Can I visit Nusa Penida as a day trip from Bali?</summary>
+            <div class="faq-answer">Yes! Fast boats from Sanur take 30–45 minutes to reach Nusa Penida. Day tours typically include Kelingking Beach viewpoint, Angel's Billabong, Broken Beach, and Crystal Bay. However, roads on Nusa Penida are rough, so tours can be tiring. Consider staying overnight to explore at a more relaxed pace and catch the sunrise.</div>
+        </details>
+    </section>
+
+    <footer>
+        <h3>&#127796; Visiting Bali's Beaches</h3>
+        <p>Fly into Ngurah Rai International Airport (DPS) in Denpasar. For the west coast beaches (Kuta, Seminyak, Uluwatu), travel by taxi or scooter. For Nusa Penida, take a fast boat from Sanur. For Amed, drive 2.5–3 hours east or take a shuttle service.</p>
+        <p>Best season: April to October (dry season). The surf season peaks June to September on the west coast. Always check local conditions before water activities.</p>
+        <div class="credits">Photos from Wikimedia Commons under Creative Commons licenses.<br>Beach information sourced from local tourism resources.</div>
+    </footer>
+
+    <script>
+    (function() {
+        var heroTitle = document.querySelector('.hero h1');
+        var heroSubtitle = document.querySelector('.hero .subtitle');
+        var heroTagline = document.querySelector('.hero .tagline');
+        var scrollIndicator = document.querySelector('.scroll-indicator');
+        var introTitle = document.querySelector('.intro h2');
+        var introText = document.querySelector('.intro p');
+        var cards = document.querySelectorAll('.beach-card');
+        var mapLinks = document.querySelectorAll('.map-link');
+        var footerTitle = document.querySelector('footer h3');
+        var footerPs = document.querySelectorAll('footer p');
+        var footerCredits = document.querySelector('footer .credits');
+        function getTextNode(el) { for (var i=0;i<el.childNodes.length;i++) { var n=el.childNodes[i]; if(n.nodeType===3&&n.textContent.trim()) return n; } return null; }
+        function getLastTextNode(el) { for (var i=el.childNodes.length-1;i>=0;i--) { var n=el.childNodes[i]; if(n.nodeType===3&&n.textContent.trim()) return n; } return null; }
+        var exploreNode = getTextNode(scrollIndicator);
+        var mapTextNodes = Array.from(mapLinks).map(function(link) { return getLastTextNode(link); });
+
+        var en = { pageTitle: document.title, heroTitle: heroTitle.textContent, heroSubtitle: heroSubtitle.textContent, heroTagline: heroTagline.textContent.trim(), heroExplore: exploreNode ? exploreNode.textContent.trim() : 'Explore', introTitle: introTitle.textContent, introText: introText.textContent.trim(), mapLink: mapTextNodes[0] ? mapTextNodes[0].textContent.trim() : 'View on Google Maps', footerTitle: footerTitle.textContent, footerP1: footerPs[0].textContent.trim(), footerP2: footerPs[1].textContent.trim(), footerCredits: footerCredits.innerHTML,
+            beaches: Array.from(cards).map(function(card) { return { badge: card.querySelector('.badge').textContent, desc: card.querySelector('.description').textContent.trim(), highlights: Array.from(card.querySelectorAll('.highlights span')).map(function(s) { return s.textContent; }) }; })};
+
+        var no = { pageTitle: 'Strendene på Bali, Indonesia', heroTitle: 'Strendene på Bali', heroSubtitle: 'Gudenes Øy, Indonesia', heroTagline: 'Fra de legendariske solnedgangene på Kuta til de dramatiske klippene i Uluwatu og de skjulte buktene på Bukit-halvøya — oppdag strender for alle typer reisende på Gudenes Øy.', heroExplore: 'Utforsk', introTitle: 'Gudenes Øy', introText: 'Balis kystlinje er like mangfoldig som kulturen. Vestkysten byr på legendariske solnedganger og surfing i verdensklasse, mens østkysten tilbyr soloppganger og uberørt dykking. Den dramatiske Bukit-halvøya gjemmer hemmelige strender under høye klipper.', mapLink: 'Vis på Google Maps',
+            footerTitle: '\ud83c\udf34 Besøk Balis strender', footerP1: 'Fly til Ngurah Rai internasjonale flyplass (DPS) i Denpasar. For vestkyststrendene (Kuta, Seminyak, Uluwatu), reis med taxi eller scooter. For Nusa Penida, ta hurtigbåt fra Sanur.', footerP2: 'Beste sesong: april til oktober (tørketiden). Surfesesongen er på topp juni til september. Sjekk alltid lokale forhold.', footerCredits: 'Bilder fra Wikimedia Commons under Creative Commons-lisenser.<br>Strandinformasjon hentet fra lokale reiselivsressurser.',
+            beaches: [
+            { badge: "★ Mest Kjent", desc: "Balis mest ikoniske strand. Kuta er en livlig strekning av gyllen sand, berømt for spektakulære solnedganger, nybegynnervennlige surfebølger og et livlig uteliv. Den brede, flate stranden er perfekt for surfeleksjoner, strandfotball og å se legendariske balinesiske solnedganger male himmelen i oransje og lilla.", highlights: ["🏄 Surfing", "🌅 Legendariske Solnedganger", "🏖️ Gyllen Sand", "🎉 Uteliv", "📸 Fotografi"] },
+            { badge: "Strandklubber", desc: "Den eksklusive forlengelsen av Kuta Beach. Seminyak er der Balis stilige strandklubb-kultur virkelig lever. Hjem til verdensberømte steder som Potato Head og Ku De Ta, stranden kombinerer luksus med vakker gyllen sand og spektakulære solnedganger.", highlights: ["🍹 Strandklubber", "🌅 Solnedganger", "🏄 Surfing", "🛍️ Butikker"] },
+            { badge: "Surfemekka", desc: "Plassert under dramatiske kalksteinsformasjoner på Balis Bukit-halvøy, er Uluwatu en legendarisk surfedestinasjon med kraftige, bølger i verdensklasse. Uluwatu-tempelet på klippen, med sine aper og fantastisk havutsikt, er vertskap for den berømte Kecak-ildsdansen ved solnedgang.", highlights: ["🏄 Verdensklasse Surfing", "🛕 Uluwatu-tempelet", "🔥 Kecak-dans", "🌅 Klippesolnedgang"] },
+            { badge: "T-Rex-klippen", desc: "Nusa Penidas mest ikoniske utsiktspunkt. Kelingking Beach har en dramatisk klippeformasjon formet som et T-Rex-hode som stuper ned i turkist vann. Utsiktspunktet på toppen er fantastisk, men de eventyrlystne kan gå ned en bratt sti til den uberørte hvite sandstranden nedenfor.", highlights: ["📸 Ikonisk Utsikt", "🏖️ Hvit Sand", "🥾 Eventyrsti", "🏝️ Avsidesliggende"] },
+            { badge: "Luksusresort", desc: "Balis fremste luksus-strandenklave. Nusa Dua har plettfrie hvite sandstrender beskyttet av et rev som skaper rolige, krystallklare badeforhold hele året. Hjem til femstjerners resorter og vannportar, det er det motsatte av Kutas kaos.", highlights: ["🏖️ Hvit Sand", "🏊 Rolig Vann", "⛳ Golfbaner", "🐠 Vannsport"] },
+            { badge: "Filmstranden", desc: "Gjort berømt av filmen Eat Pray Love, Padang Padang er en sjarmerende lomme-strand som nås gjennom en smal åpning i klippene. Den lille, beskyttede bukten har pudderaktig hvit sand og turkist vann. I surfesesongen arrangeres den årlige Rip Curl Cup her.", highlights: ["🎬 Filmlokasjon", "🏖️ Lomme-strand", "🏄 Surfekonkurranse", "💎 Turkist Vann"] },
+            { badge: "Sjømatsolnedgang", desc: "En buet halvmåne av gyllen sand der Balis mest legendariske matopplevelse finner sted hver kveld: nystekt sjømat ved bord rett på stranden mens solen synker ned i Det indiske hav. Om dagen er det rolige, grunne vannet perfekt for bading.", highlights: ["🍤 Sjømat på Stranden", "🌅 Solnedgangsmiddag", "🏊 Rolig Vann", "📸 Vakker Bukt"] },
+            { badge: "Skjult Perle", desc: "Kallenavnet «Secret Beach» eller «White Sand Beach», Bias Tugel er et skjult paradis bare en kort spasertur fra Padangbai fergeleie. Denne lille hvite sandbukten med krystallklart turkist vann er en av Balis best bevarte hemmeligheter.", highlights: ["🏝️ Hemmelig Strand", "🏖️ Hvit Sand", "💎 Krystallklart Vann", "🌴 Avsidesliggende"] },
+            { badge: "Utenfor Allfarvei", desc: "En av Balis mest avsidesliggende strender. Green Bowl krever å gå ned over 300 bratte trinn hugget inn i en kalksteinsklippe. Belønningen er en uberørt, sjelden besøkt halvmåne av hvit sand med grotter. Ved lavvann skapes naturlige tidevansbassenger perfekte for å utforske marinlivet.", highlights: ["🥾 300+ Trinn", "🏖️ Avsidesliggende", "🦇 Grotteutforskning", "🐚 Tidevansbasseng"] },
+            { badge: "Soloppgangskysten", desc: "Balis opprinnelige turiststrand og porten til Nusa Penida. Sanur er det rolige, kultiverte alternativet til Kutas festscene. De revbeskyttede vannene er milde og grunne, perfekte for familier. Stå opp tidlig for fantastiske soloppganger over Mount Agung.", highlights: ["🌅 Soloppganger", "🛥️ Port til Nusa Penida", "🏊 Rolig Vann", "🎨 Kunstgallerier"] },
+            { badge: "Surferparadis", desc: "En gyllen halvmåne av sand mellom Balis dramatiske sørlige klipper. Balangan er en favoritt blant surfere og de som søker en mer avslappet stemning. Stranden er full av rustikke warunger (lokale kafeer) bygget rett på sanden.", highlights: ["🏄 Surfebølger", "🍛 Strand-warunger", "🌅 Solnedgang", "🐚 Tidevansbasseng"] },
+            { badge: "Dykking og Snorkling", desc: "En fredelig strekning av vulkansk svart sandstrand i nordøstlige Bali. Amed er et dykkerparadis med uberørte korallhager tilgjengelige rett fra stranden. USAT Liberty-vraket ved nærliggende Tulamben er et av verdens mest berømte dykkersted.", highlights: ["🤿 Stranddykking", "🚢 USAT Liberty-vraket", "🌋 Utsikt til Agung", "🧂 Saltproduksjon"] }
+            ]};
+
+        var tl = { pageTitle: 'Mga Dalampasigan ng Bali, Indonesia', heroTitle: 'Mga Dalampasigan ng Bali', heroSubtitle: 'Isla ng mga Diyos, Indonesia', heroTagline: 'Mula sa legendaryong sunset ng Kuta hanggang sa dramatikong bangin ng Uluwatu at nakatagong coves ng Bukit Peninsula — tuklasin ang dalampasigan para sa bawat uri ng manlalakbay sa Isla ng mga Diyos.', heroExplore: 'Tuklasin', introTitle: 'Isla ng mga Diyos', introText: 'Ang baybayin ng Bali ay kasing-saganad ng kultura nito. Ang kanlurang baybayin ay nag-aalok ng legendaryong sunset at world-class surfing, habang ang silangang baybayin ay may sunrise views at pristine diving. Ang dramatikong Bukit Peninsula ay nagtago ng mga secret beach sa ilalim ng matataas na bangin.', mapLink: 'Tingnan sa Google Maps',
+            footerTitle: '\ud83c\udf34 Pagbisita sa mga Dalampasigan ng Bali', footerP1: 'Lumipad papuntang Ngurah Rai International Airport (DPS) sa Denpasar. Para sa west coast beaches (Kuta, Seminyak, Uluwatu), mag-taxi o scooter. Para sa Nusa Penida, sumakay ng fast boat mula Sanur.', footerP2: 'Pinakamagandang panahon: Abril hanggang Oktubre (tag-init). Ang surf season ay peak sa Hunyo hanggang Setyembre. Laging suriin ang lokal na kondisyon.', footerCredits: 'Mga larawan mula sa Wikimedia Commons sa ilalim ng Creative Commons licenses.<br>Impormasyon sa dalampasigan mula sa mga lokal na mapagkukunan ng turismo.',
+            beaches: [
+            { badge: "★ Pinakatanyag", desc: "Ang pinakatanyag na dalampasigan ng Bali, ang Kuta ay isang makulay na gintong buhangin na sikat sa kahanga-hangang paglubog ng araw, beginner-friendly na alon para sa surfing, at masayang nightlife. Ang malawak at patag na dalampasigan ay perpekto para sa surfing lessons at panonood ng legendaryong Balinese sunset.", highlights: ["🏄 Surfing", "🌅 Legendaryong Sunset", "🏖️ Gintong Buhangin", "🎉 Nightlife", "📸 Photography"] },
+            { badge: "Beach Clubs", desc: "Ang mas upscale na karugtong ng Kuta Beach, ang Seminyak ang lugar kung saan buhay ang chic beach club culture ng Bali. Tahanan ng world-famous spots tulad ng Potato Head at Ku De Ta, pinagsama nito ang luxury at gintong buhangin.", highlights: ["🍹 Beach Clubs", "🌅 Sunset", "🏄 Surfing", "🛍️ Boutiques"] },
+            { badge: "Surf Mecca", desc: "Nasa ilalim ng dramatikong limestone cliffs sa Bukit Peninsula ng Bali, ang Uluwatu ay isang legendaryong surf destination na may makapangyarihang world-class waves. Ang Uluwatu Temple sa tuktok ng bangin ay may sikat na Kecak fire dance tuwing sunset.", highlights: ["🏄 World-Class Surf", "🛕 Uluwatu Temple", "🔥 Kecak Dance", "🌅 Cliff Sunset"] },
+            { badge: "T-Rex Cliff", desc: "Ang pinakatanyag na viewpoint ng Nusa Penida, ang Kelingking Beach ay may dramatikong cliff formation na hugis T-Rex na tumatalon sa turkesang tubig. Ang viewpoint sa itaas ay kahanga-hanga, ngunit ang mga adventurous ay pwedeng bumaba sa matarik na trail papunta sa pristine white sand beach sa ibaba.", highlights: ["📸 Iconic Views", "🏖️ Puting Buhangin", "🥾 Adventure Trail", "🏝️ Tahimik"] },
+            { badge: "Luxury Resort", desc: "Ang premier luxury beach enclave ng Bali, ang Nusa Dua ay may maayos na puting buhangin na protektado ng reef na lumilikha ng kalmado at kristal na tubig para sa paglangoy buong taon. Tahanan ng five-star resorts at water sports centers.", highlights: ["🏖️ Puting Buhangin", "🏊 Kalmadong Tubig", "⛳ Golf", "🐠 Water Sports"] },
+            { badge: "Movie Beach", desc: "Naging sikat dahil sa pelikulang Eat Pray Love, ang Padang Padang ay isang encantong pocket beach na maabot sa makitid na awang sa mga bangin. Ang maliit na cove ay may puting buhangin, turkesang tubig, at mahusay na paglangoy.", highlights: ["🎬 Movie Location", "🏖️ Pocket Beach", "🏄 Surf Competition", "💎 Turkesang Tubig"] },
+            { badge: "Seafood Sunset", desc: "Isang sweeping crescent ng gintong buhangin kung saan nagaganap ang pinakalegendaryong dining experience ng Bali bawat gabi: sariwang inihaw na seafood sa mga mesa sa dalampasigan habang lumulubog ang araw sa Indian Ocean.", highlights: ["🍤 Beach Seafood", "🌅 Sunset Dining", "🏊 Kalmadong Tubig", "📸 Scenic Bay"] },
+            { badge: "Nakatagong Yaman", desc: "Tinaguriang 'Secret Beach,' ang Bias Tugel ay isang nakatagong paraiso na maikling lakad lang mula sa Padangbai ferry port. Ang maliit na puting buhangin na cove na may kristal na turkesang tubig ay isa sa pinakamagandang sikreto ng Bali.", highlights: ["🏝️ Secret Beach", "🏖️ Puting Buhangin", "💎 Kristal na Tubig", "🌴 Tahimik"] },
+            { badge: "Liblib na Lugar", desc: "Isa sa pinakamalayong dalampasigan ng Bali, ang Green Bowl ay nangangailangan ng pagbaba ng mahigit 300 matarik na hagdan sa limestone cliff. Ang gantimpala ay isang pristine, bihirang bisitahing puting buhangin na may mga kweba.", highlights: ["🥾 300+ Hagdan", "🏖️ Malayong Dalampasigan", "🦇 Mga Kweba", "🐚 Tide Pools"] },
+            { badge: "Sunrise Coast", desc: "Ang orihinal na tourist beach ng Bali at gateway papuntang Nusa Penida. Ang Sanur ang kalmado at kulturadong alternatibo sa party scene ng Kuta. Ang reef-protected waters ay banayad at mababaw, perpekto para sa mga pamilya.", highlights: ["🌅 Sunrise", "🛥️ Gateway to Nusa Penida", "🏊 Kalmadong Tubig", "🎨 Art Galleries"] },
+            { badge: "Surfer's Paradise", desc: "Isang gintong crescent ng buhangin sa pagitan ng dramatikong klilyado ng Bali, ang Balangan ay paborito ng mga surfer at mga naghahanap ng mas relaxed na Bukit Peninsula vibe. Ang dalampasigan ay puno ng mga warung na nagtitinda ng malamig na inumin.", highlights: ["🏄 Surf Break", "🍛 Beach Warungs", "🌅 Sunset Views", "🐚 Tide Pools"] },
+            { badge: "Diving & Snorkeling", desc: "Isang mapayapang volcanic black sand beach sa hilagang-silangan ng Bali, ang Amed ay isang diver's paradise na may pristine coral gardens na maabot mula sa dalampasigan. Ang USAT Liberty shipwreck sa kalapit na Tulamben ay isa sa pinakasikat na dive site sa mundo.", highlights: ["🤿 Shore Diving", "🚢 USAT Liberty Wreck", "🌋 Mount Agung Views", "🧂 Salt Farming"] }
+            ]};
+
+        var TX = { en: en, no: no, tl: tl };
+        function setLanguage(lang) { var t = TX[lang]; if (!t) return; document.documentElement.lang = lang === 'no' ? 'nb' : lang; document.title = t.pageTitle; heroTitle.textContent = t.heroTitle; heroSubtitle.textContent = t.heroSubtitle; heroTagline.textContent = t.heroTagline; if (exploreNode) exploreNode.textContent = ' ' + t.heroExplore + ' '; introTitle.textContent = t.introTitle; introText.textContent = t.introText; mapTextNodes.forEach(function(node) { if (node) node.textContent = ' ' + t.mapLink + ' '; }); Array.from(cards).forEach(function(card, i) { var b = t.beaches[i]; card.querySelector('.badge').textContent = b.badge; card.querySelector('.description').textContent = b.desc; var spans = card.querySelectorAll('.highlights span'); b.highlights.forEach(function(h, j) { if (spans[j]) spans[j].textContent = h; }); }); footerTitle.textContent = t.footerTitle; footerPs[0].textContent = t.footerP1; footerPs[1].textContent = t.footerP2; footerCredits.innerHTML = t.footerCredits; document.querySelectorAll('.lang-switcher button').forEach(function(btn) { btn.classList.toggle('active', btn.dataset.lang === lang); }); try { localStorage.setItem('beach-lang', lang); } catch(e) {} }
+        document.querySelector('.lang-switcher').addEventListener('click', function(e) { var btn = e.target.closest('[data-lang]'); if (btn) setLanguage(btn.dataset.lang); });
+        try { var saved = localStorage.getItem('beach-lang'); if (saved && saved !== 'en' && TX[saved]) setLanguage(saved); } catch(e) {}
+    })();
+
+    (function() {
+        var banner = document.getElementById('locationBanner'), btnAllow = document.getElementById('btnAllowLocation'), btnDismiss = document.getElementById('btnDismissLocation'), cards = document.querySelectorAll('.beach-card'), userMarker = null, map = null;
+        function haversine(lat1,lon1,lat2,lon2){var R=6371,dLat=(lat2-lat1)*Math.PI/180,dLon=(lon2-lon1)*Math.PI/180,a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+        function formatDistance(km){if(km<1)return Math.round(km*1000)+' m away';if(km<10)return km.toFixed(1)+' km away';return Math.round(km)+' km away';}
+        function updateDistances(uLat,uLng){cards.forEach(function(c){var lat=parseFloat(c.dataset.lat),lng=parseFloat(c.dataset.lng);if(isNaN(lat)||isNaN(lng))return;var d=haversine(uLat,uLng,lat,lng),b=c.querySelector('.distance-badge'),t=c.querySelector('.distance-text');if(b&&t){t.textContent=formatDistance(d);b.classList.add('visible');}});}
+        function addUserMarker(uLat,uLng){if(!map)return;if(userMarker)map.removeLayer(userMarker);var icon=L.divIcon({html:'<div style="background:#ff6b6b;width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',className:'',iconSize:[14,14],iconAnchor:[7,7]});userMarker=L.marker([uLat,uLng],{icon:icon}).addTo(map).bindPopup('<strong>Your location</strong>');}
+        function onSuccess(pos){var lat=pos.coords.latitude,lng=pos.coords.longitude;banner.classList.add('hidden');updateDistances(lat,lng);addUserMarker(lat,lng);try{localStorage.setItem('loc-lat',lat);localStorage.setItem('loc-lng',lng);localStorage.setItem('loc-allowed','1');}catch(e){}}
+        function onError(){banner.classList.add('hidden');}
+        function reqLoc(){if(!navigator.geolocation){banner.classList.add('hidden');return;}navigator.geolocation.getCurrentPosition(onSuccess,onError,{enableHighAccuracy:false,timeout:10000,maximumAge:300000});}
+        var dismissed=false,allowed=false;try{dismissed=localStorage.getItem('loc-dismissed')==='1';allowed=localStorage.getItem('loc-allowed')==='1';}catch(e){}
+        if(!navigator.geolocation||dismissed||allowed)banner.classList.add('hidden');
+        if(allowed){try{var cLat=parseFloat(localStorage.getItem('loc-lat')),cLng=parseFloat(localStorage.getItem('loc-lng'));if(!isNaN(cLat)&&!isNaN(cLng))updateDistances(cLat,cLng);}catch(e){}reqLoc();}
+        btnAllow.addEventListener('click',function(){reqLoc();});
+        btnDismiss.addEventListener('click',function(){banner.classList.add('hidden');try{localStorage.setItem('loc-dismissed','1');}catch(e){}});
+        function initMap(){map=L.map('beachMap',{scrollWheelZoom:false}).setView([-8.5,115.3],9);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:18}).addTo(map);var bounds=[];cards.forEach(function(c){var lat=parseFloat(c.dataset.lat),lng=parseFloat(c.dataset.lng);if(isNaN(lat)||isNaN(lng))return;var name=c.querySelector('h3').textContent,loc=c.querySelector('.location').textContent;L.marker([lat,lng]).addTo(map).bindPopup('<strong>'+name+'</strong><br><span style="color:#555;font-size:0.82rem;">'+loc+'</span>');bounds.push([lat,lng]);});if(bounds.length>0)map.fitBounds(bounds,{padding:[40,40]});try{var sLat=parseFloat(localStorage.getItem('loc-lat')),sLng=parseFloat(localStorage.getItem('loc-lng'));if(!isNaN(sLat)&&!isNaN(sLng))addUserMarker(sLat,sLng);}catch(e){}}
+        var mapEl=document.getElementById('beachMap');if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(e){if(e[0].isIntersecting){initMap();obs.disconnect();}},{rootMargin:'200px'});obs.observe(mapEl);}else{initMap();}
+    })();
+    </script>
+
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebSite", "name": "Beach Explorer", "url": "https://himmelfisk.github.io/beaches/", "description": "Discover the best beaches across Southeast Asia." }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org", "@type": "TouristDestination",
+        "name": "Beaches of Bali",
+        "description": "Discover the 12 best beaches in Bali, Indonesia. From legendary Kuta sunsets and Uluwatu surf to hidden gems like Bias Tugel and Green Bowl Beach.",
+        "url": "https://himmelfisk.github.io/beaches/bali-indonesia/",
+        "touristType": ["Beach Lovers", "Surfers", "Divers", "Luxury Travelers", "Adventure Seekers"],
+        "geo": { "@type": "GeoCoordinates", "latitude": -8.5, "longitude": 115.3 },
+        "containedInPlace": { "@type": "AdministrativeArea", "name": "Bali, Indonesia" },
+        "includesAttraction": [
+            { "@type": "Beach", "name": "Kuta Beach", "description": "Bali's most iconic beach, Kuta is a vibrant stretch of golden sand famous for spectacular sunsets, beginner-friendly surf breaks, and a lively nightlife scene. Once a quiet fishing village, it's now t", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.7184, "longitude": 115.1686 }, "address": { "@type": "PostalAddress", "addressLocality": "Kuta", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Seminyak Beach", "description": "The upscale continuation of Kuta Beach, Seminyak is where Bali's chic beach club culture comes alive. Home to world-famous spots like Potato Head and Ku De Ta, the beach combines luxury lounging with ", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.6891, "longitude": 115.1568 }, "address": { "@type": "PostalAddress", "addressLocality": "Seminyak", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Uluwatu Beach", "description": "Perched beneath dramatic limestone cliffs on Bali's Bukit Peninsula, Uluwatu is a legendary surf destination with powerful, world-class waves. The clifftop Uluwatu Temple, with its resident monkeys an", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.8291, "longitude": 115.0849 }, "address": { "@type": "PostalAddress", "addressLocality": "Uluwatu", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Kelingking Beach", "description": "Nusa Penida's most iconic viewpoint, Kelingking Beach features a dramatic cliff formation shaped like a Tyrannosaurus Rex head plunging into turquoise waters. The viewpoint at the top is breathtaking,", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.75, "longitude": 115.4667 }, "address": { "@type": "PostalAddress", "addressLocality": "Nusa Penida", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Nusa Dua Beach", "description": "Bali's premier luxury beach enclave, Nusa Dua features manicured white sand beaches sheltered by a reef that creates calm, crystal-clear swimming conditions year-round. Home to five-star resorts, cham", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.8, "longitude": 115.2333 }, "address": { "@type": "PostalAddress", "addressLocality": "Nusa Dua", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Padang Padang Beach", "description": "Made famous by the movie Eat Pray Love, Padang Padang is a charming pocket beach accessed through a narrow gap in the cliffs. The small, sheltered cove features powdery white sand, turquoise water, an", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.8117, "longitude": 115.1 }, "address": { "@type": "PostalAddress", "addressLocality": "Uluwatu", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Jimbaran Bay", "description": "A sweeping crescent of golden sand where Bali's most legendary dining experience takes place every evening: freshly grilled seafood at tables set directly on the beach as the sun sinks into the Indian", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.7833, "longitude": 115.1667 }, "address": { "@type": "PostalAddress", "addressLocality": "Jimbaran", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Bias Tugel Beach", "description": "Nicknamed 'Secret Beach' or 'White Sand Beach,' Bias Tugel is a hidden paradise just a short walk from the Padangbai ferry port. Accessed through a narrow trail through the jungle, this small white sa", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.5333, "longitude": 115.5167 }, "address": { "@type": "PostalAddress", "addressLocality": "Padangbai", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Green Bowl Beach", "description": "One of Bali's most secluded beaches, Green Bowl requires descending over 300 steep steps carved into a limestone cliff. The reward is a pristine, rarely-visited crescent of white sand backed by caves ", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kuta_Beach_%286924448550%29.jpg/1280px-Kuta_Beach_%286924448550%29.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.8333, "longitude": 115.2 }, "address": { "@type": "PostalAddress", "addressLocality": "Ungasan", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Sanur Beach", "description": "Bali's original tourist beach and the gateway to Nusa Penida. Sanur is the calm, cultured alternative to Kuta's party scene. The reef-protected waters are gentle and shallow, perfect for families and ", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Seminyak%2C_Bali.jpg/1280px-Seminyak%2C_Bali.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.6833, "longitude": 115.2667 }, "address": { "@type": "PostalAddress", "addressLocality": "Sanur", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Balangan Beach", "description": "A golden crescent of sand nestled between Bali's dramatic southern cliffs, Balangan is a favorite among intermediate surfers and those seeking a more laid-back Bukit Peninsula vibe. The beach is dotte", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kuta_Beach_viewed_from_Seminyak.jpg/1280px-Kuta_Beach_viewed_from_Seminyak.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.7917, "longitude": 115.1167 }, "address": { "@type": "PostalAddress", "addressLocality": "Bukit Peninsula", "addressRegion": "Bali", "addressCountry": "ID" } },
+            { "@type": "Beach", "name": "Amed Beach", "description": "A peaceful stretch of volcanic black sand beach in northeast Bali, Amed is a diver's paradise with pristine coral gardens accessible right from the shore. The USAT Liberty shipwreck at nearby Tulamben", "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Wonderfull_Nusa_Penida.jpg/1280px-Wonderfull_Nusa_Penida.jpg", "geo": { "@type": "GeoCoordinates", "latitude": -8.35, "longitude": 115.65 }, "address": { "@type": "PostalAddress", "addressLocality": "Karangasem", "addressRegion": "Bali", "addressCountry": "ID" } }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        { "@type": "Question", "name": "What is the best time to visit beaches in Bali?", "acceptedAnswer": { "@type": "Answer", "text": "The best time to visit Bali's beaches is during the dry season from April to October, when you can expect sunny skies, low humidity, and calm seas. The wet season from November to March brings occasional tropical rain but also fewer tourists and lower prices. The surf season peaks from June to September on Bali's western coast." } },
+        { "@type": "Question", "name": "How do I get to Bali, Indonesia?", "acceptedAnswer": { "@type": "Answer", "text": "Bali's Ngurah Rai International Airport (DPS) in Denpasar receives direct flights from major cities across Asia, Australia, and the Middle East. From the airport, beaches like Kuta and Seminyak are just 15\u201330 minutes away by taxi. For Nusa Penida, take a fast boat from Sanur (30\u201345 minutes). For Amed, drive about 2.5\u20133 hours east." } },
+        { "@type": "Question", "name": "Which is the most popular beach in Bali?", "acceptedAnswer": { "@type": "Answer", "text": "Kuta Beach is Bali's most famous and visited beach, known for its wide golden sand, beginner surf breaks, and legendary sunsets. For a more upscale experience, Seminyak Beach offers trendy beach clubs. For dramatic scenery, Kelingking Beach on Nusa Penida and Uluwatu's clifftop views are the most photographed." } },
+        { "@type": "Question", "name": "Is it safe to swim at Bali's beaches?", "acceptedAnswer": { "@type": "Answer", "text": "Safety varies by beach. Nusa Dua, Sanur, and Jimbaran have calm, reef-protected waters ideal for swimming and families. Kuta and Seminyak have stronger currents \u2014 always swim between the flags. Uluwatu and Padang Padang can have powerful waves. Kelingking Beach has very strong currents and swimming is risky." } },
+        { "@type": "Question", "name": "What hidden beach gems should I visit in Bali?", "acceptedAnswer": { "@type": "Answer", "text": "Bias Tugel (Secret Beach) near Padangbai is a hidden white sand cove. Green Bowl Beach requires 300+ steps but rewards with complete solitude. Balangan Beach on the Bukit Peninsula has charming warungs. Amed on the northeast coast offers black sand beaches with incredible shore diving and a peaceful, authentic vibe far from the crowds." } },
+        { "@type": "Question", "name": "How much does a beach holiday in Bali cost?", "acceptedAnswer": { "@type": "Answer", "text": "Bali caters to all budgets. Budget accommodation starts at USD 10\u201320/night for guesthouses. Mid-range hotels cost USD 40\u2013100/night. Luxury resorts in Nusa Dua range from USD 150\u2013500+/night. A typical meal costs USD 2\u20135 at local warungs, USD 10\u201325 at restaurants. Scooter rental is about USD 5/day." } },
+        { "@type": "Question", "name": "Can I visit Nusa Penida as a day trip from Bali?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Fast boats from Sanur take 30\u201345 minutes to reach Nusa Penida. Day tours typically include Kelingking Beach viewpoint, Angel's Billabong, Broken Beach, and Crystal Bay. However, roads on Nusa Penida are rough, so tours can be tiring. Consider staying overnight to explore at a more relaxed pace and catch the sunrise." } }
+    ] }
+    </script>
+
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Beach Explorer", "item": "https://himmelfisk.github.io/beaches/" },
+        { "@type": "ListItem", "position": 2, "name": "Bali, Indonesia", "item": "https://himmelfisk.github.io/beaches/bali-indonesia/" }
+    ] }
+    </script>
+
+</body>
+</html>
