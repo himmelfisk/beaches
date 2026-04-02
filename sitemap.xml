@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- TODO: Update all URLs to your custom domain when available -->
+
+    <!-- Hub / Homepage -->
+    <url>
+        <loc>https://himmelfisk.github.io/beaches/</loc>
+        <lastmod>2026-04-02</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Leyte Province, Philippines -->
+    <url>
+        <loc>https://himmelfisk.github.io/beaches/leyte-philippines/</loc>
+        <lastmod>2026-04-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Add new location pages here as you expand:
+    <url>
+        <loc>https://himmelfisk.github.io/beaches/palawan-philippines/</loc>
+        <lastmod>2026-04-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    -->
+</urlset>
