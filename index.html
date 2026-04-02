@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://himmelfisk.github.io/beaches/">
     <meta property="og:title" content="Beach Explorer — Discover the Best Beaches in Southeast Asia">
     <meta property="og:description" content="Explore the most beautiful beaches across Southeast Asia. Pristine islands, white sand shores, and hidden coastal gems.">
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/1200px-Kalanggaman_Island_2024.jpg">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1200px-Kalanggaman_Island.jpg">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="Beach Explorer">
 
@@ -23,10 +23,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Beach Explorer — Discover the Best Beaches in Southeast Asia">
     <meta name="twitter:description" content="Explore the most beautiful beaches across Southeast Asia. Pristine islands, white sand shores, and hidden coastal gems.">
-    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/1200px-Kalanggaman_Island_2024.jpg">
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1200px-Kalanggaman_Island.jpg">
 
     <!-- Preload hero image -->
-    <link rel="preload" as="image" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/1920px-Kalanggaman_Island_2024.jpg">
+    <link rel="preload" as="image" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1920px-Kalanggaman_Island.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@
             overflow: hidden;
             background:
                 linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)),
-                url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/1920px-Kalanggaman_Island_2024.jpg') center/cover no-repeat;
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1920px-Kalanggaman_Island.jpg') center/cover no-repeat;
         }
 
         .hero::after {
@@ -267,13 +267,45 @@
             font-weight: 500;
         }
 
-        .coming-soon {
-            opacity: 0.6;
-            pointer-events: none;
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.3rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.3rem 0.4rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .coming-soon .badge {
-            background: var(--text-muted);
+        .lang-switcher button {
+            background: none;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.4rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.1);
+        }
+
+        .lang-switcher button.active {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
         }
 
         /* Footer */
@@ -308,6 +340,13 @@
 </head>
 <body>
 
+    <!-- Language Switcher -->
+    <nav class="lang-switcher" aria-label="Language selector">
+        <button data-lang="en" class="active" title="English" aria-label="English">🇬🇧</button>
+        <button data-lang="no" title="Norsk" aria-label="Norsk">🇳🇴</button>
+        <button data-lang="tl" title="Tagalog" aria-label="Tagalog">🇵🇭</button>
+    </nav>
+
     <!-- Hero -->
     <header class="hero">
         <div class="hero-content">
@@ -333,7 +372,7 @@
         <!-- Leyte, Philippines -->
         <a href="leyte-philippines/" class="destination-card">
             <div class="image-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Kalanggaman_Island_2024.jpg/800px-Kalanggaman_Island_2024.jpg"
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/800px-Kalanggaman_Island.jpg"
                      alt="Kalanggaman Island white sandbar in Leyte Province, Philippines"
                      loading="lazy">
                 <span class="badge">&#9733; Featured</span>
@@ -346,49 +385,175 @@
             </div>
         </a>
 
-        <!-- Palawan — Coming Soon -->
-        <div class="destination-card coming-soon">
+        <!-- Palawan, Philippines -->
+        <a href="palawan-philippines/" class="destination-card">
             <div class="image-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/El_Nido_Palawan_01.jpg/800px-El_Nido_Palawan_01.jpg"
-                     alt="El Nido limestone cliffs and turquoise waters in Palawan, Philippines"
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/800px-El_Nido_Beach%2C_Palawan.jpg"
+                     alt="El Nido Beach with limestone cliffs and turquoise waters in Palawan, Philippines"
                      loading="lazy">
-                <span class="badge">Coming Soon</span>
+                <span class="badge">&#9733; New</span>
             </div>
             <div class="card-body">
                 <h3>Palawan</h3>
                 <div class="location">&#9906; MIMAROPA, Philippines</div>
-                <p class="description">Home to El Nido, Coron, and the Underground River &mdash; often voted the best island in the world. Crystal lagoons, towering limestone cliffs, and world-class diving await.</p>
-                <span class="beach-count">&#127965; Coming soon</span>
+                <p class="description">Explore 12 stunning beaches from the crystal lagoons of El Nido to the shipwreck dives of Coron. Discover the Puerto Princesa Underground River, hidden coves, and world-class snorkeling spots.</p>
+                <span class="beach-count">&#127965; 12 beaches</span>
             </div>
-        </div>
+        </a>
 
-        <!-- Bali — Coming Soon -->
-        <div class="destination-card coming-soon">
+        <!-- Bali, Indonesia -->
+        <a href="bali-indonesia/" class="destination-card">
             <div class="image-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Tanah_Lot_Sunset_02.jpg/800px-Tanah_Lot_Sunset_02.jpg"
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Tanah_Lot_Sunset.jpg/800px-Tanah_Lot_Sunset.jpg"
                      alt="Tanah Lot temple at sunset in Bali, Indonesia"
                      loading="lazy">
-                <span class="badge">Coming Soon</span>
+                <span class="badge">&#9733; New</span>
             </div>
             <div class="card-body">
                 <h3>Bali</h3>
                 <div class="location">&#9906; Indonesia</div>
-                <p class="description">The Island of the Gods combines stunning beaches with rich culture. From the surf breaks of Uluwatu to the black sand of Lovina, Bali offers beaches for every type of traveler.</p>
-                <span class="beach-count">&#127965; Coming soon</span>
+                <p class="description">Discover 12 spectacular beaches from the surf breaks of Uluwatu and the dramatic cliffs of Kelingking Beach to hidden gems like Bias Tugel and Green Bowl. Beaches for every type of traveler.</p>
+                <span class="beach-count">&#127965; 12 beaches</span>
             </div>
-        </div>
+        </a>
 
     </section>
 
     <!-- Footer -->
     <footer>
         <h3>&#127758; Beach Explorer</h3>
-        <p>We're expanding our coverage to include the best beaches across Southeast Asia. Check back soon for new destinations including Palawan, Bali, Siargao, and more.</p>
+        <p>Explore our growing collection of Southeast Asia's best beaches, from the pristine islands of Leyte and Palawan in the Philippines to the world-famous shores of Bali, Indonesia.</p>
         <div class="credits">
             Photos from Wikimedia Commons under Creative Commons licenses.<br>
             Beach information sourced from local tourism resources.
         </div>
     </footer>
+
+    <!-- Language Switcher Script -->
+    <script>
+    (function() {
+        var heroTitle = document.querySelector('.hero h1');
+        var heroSubtitle = document.querySelector('.hero .subtitle');
+        var heroTagline = document.querySelector('.hero .tagline');
+        var scrollIndicator = document.querySelector('.scroll-indicator');
+        var introTitle = document.querySelector('.intro h2');
+        var introText = document.querySelector('.intro p');
+        var cards = document.querySelectorAll('.destination-card');
+        var footerTitle = document.querySelector('footer h3');
+        var footerP = document.querySelector('footer p');
+        var footerCredits = document.querySelector('footer .credits');
+
+        function getTextNode(el) {
+            for (var i = 0; i < el.childNodes.length; i++) {
+                var n = el.childNodes[i];
+                if (n.nodeType === 3 && n.textContent.trim()) return n;
+            }
+            return null;
+        }
+        var exploreNode = getTextNode(scrollIndicator);
+
+        var en = {
+            pageTitle: document.title,
+            heroTitle: heroTitle.textContent,
+            heroSubtitle: heroSubtitle.textContent,
+            heroTagline: heroTagline.textContent.trim(),
+            heroExplore: exploreNode ? exploreNode.textContent.trim() : 'Explore Destinations',
+            introTitle: introTitle.textContent,
+            introText: introText.textContent.trim(),
+            footerTitle: footerTitle.textContent,
+            footerP: footerP.textContent.trim(),
+            footerCredits: footerCredits.innerHTML,
+            destinations: Array.from(cards).map(function(card) {
+                return {
+                    badge: card.querySelector('.badge').textContent,
+                    title: card.querySelector('h3').textContent,
+                    location: card.querySelector('.location').textContent,
+                    desc: card.querySelector('.description').textContent.trim(),
+                    count: card.querySelector('.beach-count').textContent
+                };
+            })
+        };
+
+        var no = {
+            pageTitle: 'Beach Explorer \u2014 Oppdag de beste strendene i S\u00f8r\u00f8st-Asia',
+            heroTitle: 'Beach Explorer',
+            heroSubtitle: 'Oppdag de beste strendene i S\u00f8r\u00f8st-Asia',
+            heroTagline: 'Fra uber\u00f8rte hvite sand\u00f8yer p\u00e5 Filippinene til skjulte kystperler \u2014 din guide til de vakreste strendene i regionen.',
+            heroExplore: 'Utforsk Destinasjoner',
+            introTitle: 'Din port til paradiset',
+            introText: 'Vi bygger den mest omfattende guiden til S\u00f8r\u00f8st-Asias beste strender. Hver destinasjonsside har detaljerte strandprofiler, interaktive kart, reisetips og fantastisk fotografi for \u00e5 hjelpe deg med \u00e5 planlegge din perfekte tropiske ferie.',
+            footerTitle: '\ud83c\udf0e Beach Explorer',
+            footerP: 'Utforsk v\u00e5r voksende samling av S\u00f8r\u00f8st-Asias beste strender, fra de uber\u00f8rte \u00f8yene i Leyte og Palawan p\u00e5 Filippinene til de verdensber\u00f8mte strendene p\u00e5 Bali, Indonesia.',
+            footerCredits: 'Bilder fra Wikimedia Commons under Creative Commons-lisenser.<br>Strandinformasjon hentet fra lokale reiselivsressurser.',
+            destinations: [
+                { badge: '\u2605 Anbefalt', title: 'Leyte-provinsen', location: '\u2702 \u00d8stlige Visayas, Filippinene', desc: 'Utforsk 14 fantastiske strender inkludert den ber\u00f8mte Kalanggaman Island-sandbanken, den historiske MacArthur Landing Red Beach og \u00f8yhoppingparadiset Cuatro Islas.', count: '\ud83c\udfd6\ufe0f 14 strender' },
+                { badge: '\u2605 Ny', title: 'Palawan', location: '\u2702 MIMAROPA, Filippinene', desc: 'Utforsk 12 fantastiske strender fra krystallagunene i El Nido til vrakdykkingen i Coron. Oppdag Puerto Princesa Underground River, skjulte bukter og snorklingsperler.', count: '\ud83c\udfd6\ufe0f 12 strender' },
+                { badge: '\u2605 Ny', title: 'Bali', location: '\u2702 Indonesia', desc: 'Oppdag 12 spektakul\u00e6re strender fra surfeb\u00f8lgene i Uluwatu og de dramatiske klippene p\u00e5 Kelingking Beach til skjulte perler som Bias Tugel og Green Bowl.', count: '\ud83c\udfd6\ufe0f 12 strender' }
+            ]
+        };
+
+        var tl = {
+            pageTitle: 'Beach Explorer \u2014 Tuklasin ang Pinakamagandang mga Dalampasigan sa Timog-Silangang Asya',
+            heroTitle: 'Beach Explorer',
+            heroSubtitle: 'Tuklasin ang Pinakamagandang mga Dalampasigan sa Timog-Silangang Asya',
+            heroTagline: 'Mula sa malilinis na puting buhanginan sa Pilipinas hanggang sa mga nakatagong hiyas sa baybayin \u2014 ang iyong gabay sa pinakamagandang mga dalampasigan sa rehiyon.',
+            heroExplore: 'Tuklasin ang mga Destinasyon',
+            introTitle: 'Ang Iyong Daan Patungong Paraiso',
+            introText: 'Ginagawa namin ang pinakamalawak na gabay sa pinakamagandang mga dalampasigan ng Timog-Silangang Asya. Ang bawat pahina ng destinasyon ay may detalyadong profile ng dalampasigan, interactive na mapa, mga tip sa paglalakbay, at kamangha-manghang litrato upang matulungan kang planuhin ang iyong perpektong tropikong bakasyon.',
+            footerTitle: '\ud83c\udf0e Beach Explorer',
+            footerP: 'Tuklasin ang aming lumalaking koleksyon ng pinakamagandang mga dalampasigan sa Timog-Silangang Asya, mula sa malilinis na isla ng Leyte at Palawan sa Pilipinas hanggang sa mga tanyag na baybayin ng Bali, Indonesia.',
+            footerCredits: 'Mga larawan mula sa Wikimedia Commons sa ilalim ng Creative Commons licenses.<br>Impormasyon sa dalampasigan mula sa mga lokal na mapagkukunan ng turismo.',
+            destinations: [
+                { badge: '\u2605 Tampok', title: 'Lalawigan ng Leyte', location: '\u2702 Silangang Visayas, Pilipinas', desc: 'Tuklasin ang 14 na kamangha-manghang dalampasigan kabilang ang sikat na Kalanggaman Island sandbar, ang makasaysayang MacArthur Landing Red Beach, at ang island-hopping na paraiso ng Cuatro Islas.', count: '\ud83c\udfd6\ufe0f 14 na dalampasigan' },
+                { badge: '\u2605 Bago', title: 'Palawan', location: '\u2702 MIMAROPA, Pilipinas', desc: 'Tuklasin ang 12 kamangha-manghang dalampasigan mula sa kristal na laguna ng El Nido hanggang sa wreck diving ng Coron. Tuklasin ang Puerto Princesa Underground River, nakatagong kweba, at snorkeling spots.', count: '\ud83c\udfd6\ufe0f 12 dalampasigan' },
+                { badge: '\u2605 Bago', title: 'Bali', location: '\u2702 Indonesia', desc: 'Tuklasin ang 12 kahanga-hangang dalampasigan mula sa surf breaks ng Uluwatu at ang dramatikong bangin ng Kelingking Beach hanggang sa mga nakatagong hiyas tulad ng Bias Tugel at Green Bowl.', count: '\ud83c\udfd6\ufe0f 12 dalampasigan' }
+            ]
+        };
+
+        var TX = { en: en, no: no, tl: tl };
+
+        function setLanguage(lang) {
+            var t = TX[lang];
+            if (!t) return;
+            document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+            document.title = t.pageTitle;
+            heroTitle.textContent = t.heroTitle;
+            heroSubtitle.textContent = t.heroSubtitle;
+            heroTagline.textContent = t.heroTagline;
+            if (exploreNode) exploreNode.textContent = ' ' + t.heroExplore + ' ';
+            introTitle.textContent = t.introTitle;
+            introText.textContent = t.introText;
+            footerTitle.textContent = t.footerTitle;
+            footerP.textContent = t.footerP;
+            footerCredits.innerHTML = t.footerCredits;
+
+            Array.from(cards).forEach(function(card, i) {
+                var d = t.destinations[i];
+                if (!d) return;
+                card.querySelector('.badge').textContent = d.badge;
+                card.querySelector('h3').textContent = d.title;
+                card.querySelector('.location').innerHTML = d.location;
+                card.querySelector('.description').textContent = d.desc;
+                card.querySelector('.beach-count').textContent = d.count;
+            });
+
+            document.querySelectorAll('.lang-switcher button').forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            try { localStorage.setItem('beach-lang', lang); } catch(e) {}
+        }
+
+        document.querySelector('.lang-switcher').addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-lang]');
+            if (btn) setLanguage(btn.dataset.lang);
+        });
+
+        try {
+            var saved = localStorage.getItem('beach-lang');
+            if (saved && saved !== 'en' && TX[saved]) setLanguage(saved);
+        } catch(e) {}
+    })();
+    </script>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -421,6 +586,18 @@
                     "position": 1,
                     "url": "https://himmelfisk.github.io/beaches/leyte-philippines/",
                     "name": "Best Beaches in Leyte Province, Philippines"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "url": "https://himmelfisk.github.io/beaches/palawan-philippines/",
+                    "name": "Best Beaches in Palawan, Philippines"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "url": "https://himmelfisk.github.io/beaches/bali-indonesia/",
+                    "name": "Best Beaches in Bali, Indonesia"
                 }
             ]
         }

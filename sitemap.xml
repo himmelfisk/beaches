@@ -18,12 +18,20 @@
         <priority>0.9</priority>
     </url>
 
-    <!-- Add new location pages here as you expand:
+    <!-- Palawan, Philippines -->
     <url>
         <loc>https://himmelfisk.github.io/beaches/palawan-philippines/</loc>
         <lastmod>2026-04-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
-    -->
+
+    <!-- Bali, Indonesia -->
+    <url>
+        <loc>https://himmelfisk.github.io/beaches/bali-indonesia/</loc>
+        <lastmod>2026-04-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
 </urlset>
