@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Beaches in Palawan, Philippines — Travel Guide | Beach Explorer</title>
+    <meta name="description" content="Discover the 12 best beaches in Palawan, Philippines. Explore El Nido, Coron, the Underground River, and hidden gems like Port Barton and the Linapacan Islands.">
+    <meta name="keywords" content="beaches Palawan Philippines, Palawan travel guide, El Nido beaches, Coron diving, Puerto Princesa Underground River, island hopping Palawan, hidden beaches Philippines">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://himmelfisk.github.io/beaches/palawan-philippines/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://himmelfisk.github.io/beaches/palawan-philippines/">
+    <meta property="og:title" content="Best Beaches in Palawan, Philippines — Travel Guide">
+    <meta property="og:description" content="Discover the 12 best beaches in Palawan, Philippines. Explore El Nido, Coron, the Underground River, and hidden gems like Port Barton and Linapacan.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1200px-El_Nido_Beach%2C_Palawan.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Beach Explorer">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Best Beaches in Palawan, Philippines — Travel Guide">
+    <meta name="twitter:description" content="Discover the 12 best beaches in Palawan, Philippines. Explore El Nido, Coron, the Underground River, and hidden gems like Port Barton and Linapacan.">
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1200px-El_Nido_Beach%2C_Palawan.jpg">
+
+    <link rel="preload" as="image" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1920px-El_Nido_Beach%2C_Palawan.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sand: #f5e6d3;
+            --ocean-deep: #0c2d48;
+            --ocean-mid: #145374;
+            --ocean-light: #2e8bc0;
+            --foam: #b1d4e0;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-muted: #555;
+            --coral: #ff6b6b;
+            --sunset: #f7a072;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--sand);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)),
+                url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kalanggaman_Island.jpg/1920px-Kalanggaman_Island.jpg') center/cover no-repeat;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--sand), transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--foam);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero .tagline {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .scroll-indicator {
+            display: inline-block;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Intro Section */
+        .intro {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            margin-bottom: 1rem;
+        }
+
+        .intro p {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Beach Cards Grid */
+        .beaches {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .beach-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .beach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+        }
+
+        .beach-card .image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+        }
+
+        .beach-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .beach-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .beach-card .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(12, 45, 72, 0.85);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .beach-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .beach-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ocean-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .beach-card .location {
+            font-size: 0.85rem;
+            color: var(--ocean-light);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .beach-card .description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .beach-card .highlights span {
+            background: var(--sand);
+            color: var(--ocean-mid);
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--ocean-mid), var(--ocean-light));
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .map-link:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        .map-link svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .distance-badge {
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.82rem;
+            color: var(--ocean-mid);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, rgba(177,212,224,0.3), rgba(46,139,192,0.1));
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        .distance-badge.visible {
+            display: inline-flex;
+        }
+
+        .distance-badge svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Location prompt banner */
+        .location-banner {
+            background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+            color: var(--white);
+            text-align: center;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .location-banner.hidden {
+            display: none;
+        }
+
+        .location-banner p {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .location-banner button {
+            border: none;
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .location-banner button:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-allow {
+            background: var(--white);
+            color: var(--ocean-deep);
+        }
+
+        .btn-dismiss {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        /* Map section */
+        .map-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .map-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            height: 500px;
+        }
+
+        .map-container .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-container .leaflet-popup-content {
+            margin: 12px 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 1024px) {
+            .map-section {
+                padding: 0 2rem 5rem;
+            }
+            .map-container {
+                height: 550px;
+            }
+        }
+
+        /* Photo attribution */
+        .photo-credit {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.7);
+            background: rgba(0,0,0,0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            backdrop-filter: blur(2px);
+        }
+
+        .photo-credit a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ocean-deep);
+            color: var(--foam);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto 0.5rem;
+        }
+
+        footer .credits {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: rgba(177, 212, 224, 0.6);
+        }
+
+        /* Tablet */
+        @media (min-width: 640px) {
+            .beaches {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 2;
+            }
+
+            .beach-card.featured .image-container {
+                aspect-ratio: 21 / 9;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .beaches {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                padding: 1rem 2rem 5rem;
+            }
+
+            .beach-card.featured {
+                grid-column: span 3;
+            }
+
+            .beach-card.featured .card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .intro {
+                padding: 5rem 2rem 3rem;
+            }
+
+            .beach-card .card-body {
+                padding: 2rem;
+            }
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.3rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.3rem 0.4rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1.4rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .lang-switcher button:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.1);
+        }
+
+        .lang-switcher button.active {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .faq-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--ocean-deep);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 1.2rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--ocean-mid);
+            font-size: 1.05rem;
+            transition: background 0.2s ease;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--ocean-light);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item[open] summary::after {
+            content: '−';
+        }
+
+        .faq-item summary:hover {
+            background: rgba(46, 139, 192, 0.05);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(12, 45, 72, 0.85);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+        }
+
+        .breadcrumb a {
+            color: var(--foam);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--white);
+        }
+
+        .breadcrumb .separator {
+            color: rgba(177, 212, 224, 0.5);
+        }
+
+        .breadcrumb .current {
+            color: var(--white);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../">&#127758; Beach Explorer</a>
+        <span class="separator">›</span>
+        <span class="current">Palawan</span>
+    </nav>
+
+    <!-- Location Permission Banner -->
+    <div class="location-banner" id="locationBanner">
+        <p>&#128205; Enable location to see distances to each beach</p>
+        <button class="btn-allow" id="btnAllowLocation">Allow Location</button>
+        <button class="btn-dismiss" id="btnDismissLocation">No Thanks</button>
+    </div>
+
+    <!-- Language Switcher -->
+    <nav class="lang-switcher" aria-label="Language selector">
+        <button data-lang="en" class="active" title="English" aria-label="English">🇬🇧</button>
+        <button data-lang="no" title="Norsk" aria-label="Norsk">🇳🇴</button>
+        <button data-lang="tl" title="Tagalog" aria-label="Tagalog">🇵🇭</button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(12, 45, 72, 0.7), rgba(46, 139, 192, 0.5)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1920px-El_Nido_Beach%2C_Palawan.jpg') center/cover no-repeat;">
+        <div class="hero-content">
+            <h1>Beaches of Palawan</h1>
+            <p class="subtitle">MIMAROPA Region, Philippines</p>
+            <p class="tagline">
+                From the crystal lagoons of El Nido to the shipwreck dives of Coron and the world's clearest waters at Linapacan &mdash; discover the island paradise consistently voted the best in the world.
+            </p>
+            <a href="#beaches" class="scroll-indicator">
+                Explore
+                <span>&#8595;</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="intro">
+        <h2>The Last Frontier</h2>
+        <p>
+            Palawan, often called the "Last Frontier" of the Philippines, is a 450-kilometer stretch of pristine islands, hidden lagoons, and crystal-clear waters. From the UNESCO-listed Underground River to the dramatic limestone karsts of El Nido and the world-class wreck diving of Coron, Palawan offers unforgettable beach experiences ranging from well-known wonders to secret, barely-touched paradise islands.
+        </p>
+    </section>
+
+    <!-- Beach Cards -->
+    <section id="beaches" class="beaches">
+
+        <!-- 1. El Nido Beach -->
+        <article class="beach-card featured" data-lat="11.1784" data-lng="119.392">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1280px-El_Nido_Beach%2C_Palawan.jpg"
+                     alt="El Nido Beach with towering limestone cliffs and crystal-clear turquoise waters in Palawan, Philippines"
+                     loading="lazy">
+                <span class="badge">★ Most Popular</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:El_Nido_Beach,_Palawan.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>El Nido Beach</h3>
+                <div class="location">&#9906; El Nido, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    El Nido is the crown jewel of Palawan, famous for its dramatic limestone karst cliffs rising from emerald waters. With over 45 islands and islets to explore, it offers world-class island hopping through hidden lagoons, secret beaches, and vibrant coral gardens. The Bacuit Archipelago's Tour A and Tour C are considered some of the best boat trips in all of Southeast Asia.
+                </p>
+                <div class="highlights">
+                    <span>🏖️ Limestone Cliffs</span>
+                    <span>⛵ Island Hopping</span>
+                    <span>🌊 Crystal Lagoons</span>
+                    <span>🤿 Snorkeling</span>
+                    <span>🛶 Kayaking</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/El+Nido+Beach+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 2. Big Lagoon -->
+        <article class="beach-card" data-lat="11.2" data-lng="119.32">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg"
+                     alt="Big Lagoon with emerald waters surrounded by towering limestone karsts in El Nido, Palawan"
+                     loading="lazy">
+                <span class="badge">Tour A</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Big_Lagoon_at_El_Nido,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Big Lagoon</h3>
+                <div class="location">&#9906; El Nido, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    The Big Lagoon is the highlight of El Nido's famous Tour A, where towering limestone walls create a breathtaking natural amphitheater around crystal-clear emerald waters. Kayak through the narrow entrance into a hidden world of mangroves, vibrant marine life, and surreal rock formations. The shallow waters reveal colorful coral gardens visible from the surface.
+                </p>
+                <div class="highlights">
+                    <span>🌊 Crystal Lagoon</span>
+                    <span>🛶 Kayaking</span>
+                    <span>🪨 Limestone Karsts</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Big+Lagoon+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 3. Nacpan Beach -->
+        <article class="beach-card" data-lat="11.2833" data-lng="119.4167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg/1280px-Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg"
+                     alt="Long stretch of golden sand at Nacpan Beach in El Nido, Palawan"
+                     loading="lazy">
+                <span class="badge">Twin Beaches</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Beach_in_El_Nido_Bay,_pure_tropical_bliss,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Nacpan Beach</h3>
+                <div class="location">&#9906; El Nido, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    A stunning 4-kilometer stretch of golden sand that forms a twin beach with neighboring Calitang Beach. Unlike the main El Nido area, Nacpan remains blissfully uncrowded with swaying coconut palms, gentle waves perfect for swimming, and spectacular sunsets. Local vendors serve fresh coconut and grilled seafood on the beach.
+                </p>
+                <div class="highlights">
+                    <span>🏖️ Golden Sand</span>
+                    <span>🌅 Sunset Views</span>
+                    <span>🌴 Quiet Escape</span>
+                    <span>🏄 Surfing</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Nacpan+Beach+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 4. Kayangan Lake -->
+        <article class="beach-card" data-lat="11.9833" data-lng="120.2">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-El_Nido%2C_Palawan%2C_Philippines.jpg"
+                     alt="Crystal-clear waters of Kayangan Lake surrounded by limestone cliffs in Coron, Palawan"
+                     loading="lazy">
+                <span class="badge">Cleanest Lake</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:El_Nido,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Kayangan Lake</h3>
+                <div class="location">&#9906; Coron, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    Dubbed the cleanest lake in the Philippines, Kayangan Lake is a freshwater gem hidden behind a short but steep hike through limestone rocks. The crystal-clear waters reveal an otherworldly underwater landscape of jagged rock formations. The viewpoint at the top of the trail offers one of Palawan's most iconic panoramic views of Coron Bay.
+                </p>
+                <div class="highlights">
+                    <span>💎 Crystal Water</span>
+                    <span>🏊 Swimming</span>
+                    <span>🤿 Snorkeling</span>
+                    <span>🥾 Hiking</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Kayangan+Lake+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 5. Puerto Princesa Underground River -->
+        <article class="beach-card" data-lat="10.1833" data-lng="118.9167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Puerto_Princesa_Underground_River.jpg/1280px-Puerto_Princesa_Underground_River.jpg"
+                     alt="Entrance to the Puerto Princesa Subterranean River National Park in Palawan, Philippines"
+                     loading="lazy">
+                <span class="badge">UNESCO Site</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Puerto_Princesa_Underground_River.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Puerto Princesa Underground River</h3>
+                <div class="location">&#9906; Puerto Princesa, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    A UNESCO World Heritage Site and one of the New 7 Wonders of Nature, the Puerto Princesa Subterranean River stretches over 8 kilometers through a stunning limestone cave system. The boat tour glides past cathedral-like chambers adorned with stalactites and stalagmites. The beach at the cave entrance, Sabang Beach, is a beautiful destination in its own right.
+                </p>
+                <div class="highlights">
+                    <span>��️ UNESCO Heritage</span>
+                    <span>🚣 Cave Tour</span>
+                    <span>🦇 Underground River</span>
+                    <span>🌿 Mangroves</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Puerto+Princesa+Underground+River+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 6. Honda Bay -->
+        <article class="beach-card" data-lat="9.8333" data-lng="118.7333">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Palawan_Underground_river.jpg/1280px-Palawan_Underground_river.jpg"
+                     alt="Turquoise waters and white sand islands of Honda Bay, Puerto Princesa, Palawan"
+                     loading="lazy">
+                <span class="badge">Island Hopping</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Palawan_Underground_river.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Honda Bay</h3>
+                <div class="location">&#9906; Puerto Princesa, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    A collection of beautiful islands just a short boat ride from Puerto Princesa. Honda Bay offers some of Palawan's most accessible island-hopping, with stops at Starfish Island, Luli Island, and Cowrie Island. The shallow turquoise waters are perfect for snorkeling among colorful fish and coral formations, and the sandbars are ideal for picnics.
+                </p>
+                <div class="highlights">
+                    <span>⛵ Island Hopping</span>
+                    <span>🤿 Snorkeling</span>
+                    <span>⭐ Starfish Island</span>
+                    <span>🏖️ White Sand</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Honda+Bay+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 7. Port Barton -->
+        <article class="beach-card" data-lat="10.4667" data-lng="119.1167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Entrance_Puerto_Princesa_Subterranean_River.jpg/1280px-Entrance_Puerto_Princesa_Subterranean_River.jpg"
+                     alt="Quiet fishing village beach at Port Barton, San Vicente, Palawan"
+                     loading="lazy">
+                <span class="badge">Hidden Gem</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Entrance_Puerto_Princesa_Subterranean_River.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Port Barton</h3>
+                <div class="location">&#9906; San Vicente, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    A sleepy fishing village that feels like Palawan before tourism arrived. Port Barton has no ATMs, limited WiFi, and dirt roads — and that's exactly the charm. With pristine island-hopping, coral reefs teeming with sea turtles, and some of the most affordable beachfront bungalows in the Philippines, it's a backpacker's paradise.
+                </p>
+                <div class="highlights">
+                    <span>🌴 Secluded</span>
+                    <span>🐢 Sea Turtles</span>
+                    <span>⛵ Island Hopping</span>
+                    <span>📵 Off-Grid</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Port+Barton+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 8. Long Beach San Vicente -->
+        <article class="beach-card" data-lat="10.5" data-lng="119.2833">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1280px-El_Nido_Beach%2C_Palawan.jpg"
+                     alt="Long stretch of white sand at Long Beach, San Vicente, Palawan"
+                     loading="lazy">
+                <span class="badge">Longest Beach</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:El_Nido_Beach,_Palawan.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Long Beach San Vicente</h3>
+                <div class="location">&#9906; San Vicente, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    At 14.7 kilometers, Long Beach in San Vicente is the longest white sand beach in the Philippines — longer than Boracay's famous White Beach by a factor of ten. Despite its record length, it remains one of Palawan's best-kept secrets with barely any tourists, no major resorts, and miles of pristine coastline backed by coconut groves.
+                </p>
+                <div class="highlights">
+                    <span>🏖️ 14km Beach</span>
+                    <span>🌴 White Sand</span>
+                    <span>🌅 Unspoiled</span>
+                    <span>🏝️ Secluded</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Long+Beach+San+Vicente+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 9. Coron Shipwreck Sites -->
+        <article class="beach-card" data-lat="11.9667" data-lng="120.2167">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-El_Nido%2C_Palawan%2C_Philippines.jpg"
+                     alt="Turquoise waters over the Coron shipwreck diving sites in Palawan, Philippines"
+                     loading="lazy">
+                <span class="badge">Wreck Diving</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:El_Nido,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Coron Shipwreck Sites</h3>
+                <div class="location">&#9906; Coron, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    Coron is a world-renowned wreck diving destination, home to a fleet of Japanese supply ships sunk during World War II. Divers explore the eerie remains of the Irako Maru, Akitsushima, and Kogyo Maru, now encrusted with vibrant coral and inhabited by schools of tropical fish. Even non-divers can snorkel over shallow wrecks visible from the surface.
+                </p>
+                <div class="highlights">
+                    <span>🤿 Wreck Diving</span>
+                    <span>📍 WWII History</span>
+                    <span>🐠 Marine Life</span>
+                    <span>🌊 Snorkeling</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Coron+Shipwreck+Sites+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 10. Flower Island -->
+        <article class="beach-card" data-lat="10.8333" data-lng="119.5">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg"
+                     alt="Crystal clear waters surrounding Flower Island eco-resort in Taytay, Palawan"
+                     loading="lazy">
+                <span class="badge">Eco-Resort</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Big_Lagoon_at_El_Nido,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Flower Island</h3>
+                <div class="location">&#9906; Taytay, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    A tiny private island paradise off the coast of Taytay, Flower Island is one of Palawan's most exclusive and eco-friendly getaways. Surrounded by pristine coral reefs teeming with tropical fish, the island features thatched-roof cottages, organic gardens, and some of the best house reef snorkeling in the Philippines. A true off-the-beaten-path gem.
+                </p>
+                <div class="highlights">
+                    <span>🏝️ Private Island</span>
+                    <span>♻️ Eco-Tourism</span>
+                    <span>🐠 Coral Reefs</span>
+                    <span>🦅 Birdwatching</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Flower+Island+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 11. Sabang Beach -->
+        <article class="beach-card" data-lat="10.1833" data-lng="118.9">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg/1280px-Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg"
+                     alt="Sabang Beach with mangrove-lined shores near the Underground River in Palawan"
+                     loading="lazy">
+                <span class="badge">Off the Beaten Path</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Beach_in_El_Nido_Bay,_pure_tropical_bliss,_Palawan,_Philippines.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Sabang Beach</h3>
+                <div class="location">&#9906; Puerto Princesa, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    The gateway beach to the Underground River, Sabang is far more than just a transit point. The long stretch of sand is backed by jungle-covered mountains and lined with mangrove forests. After dark, take a magical firefly-watching boat tour along the mangrove-lined Sabang River, where thousands of fireflies light up the trees like Christmas lights.
+                </p>
+                <div class="highlights">
+                    <span>🌿 Mangroves</span>
+                    <span>✨ Firefly Tour</span>
+                    <span>🌴 Jungle Beach</span>
+                    <span>🧗 Zip Line</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Sabang+Beach+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+        <!-- 12. Linapacan Islands -->
+        <article class="beach-card" data-lat="11.4833" data-lng="119.8833">
+            <div class="image-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Puerto_Princesa_Underground_River.jpg/1280px-Puerto_Princesa_Underground_River.jpg"
+                     alt="Crystal-clear waters of the Linapacan Islands, often cited as having the clearest water in the world"
+                     loading="lazy">
+                <span class="badge">Clearest Water</span>
+                <span class="photo-credit"><a href="https://commons.wikimedia.org/wiki/File:Puerto_Princesa_Underground_River.jpg">Wikimedia Commons</a> &middot; CC</span>
+            </div>
+            <div class="card-body">
+                <h3>Linapacan Islands</h3>
+                <div class="location">&#9906; Linapacan, Palawan</div>
+                <div class="distance-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span class="distance-text"></span>
+                </div>
+                <p class="description">
+                    Tucked between El Nido and Coron, the Linapacan Islands are said to have the clearest water in the world. This remote archipelago of 52 islands remains virtually untouched by tourism — no resorts, no restaurants, just pristine beaches and underwater visibility that seems infinite. Getting here requires a private boat or expedition tour, making it one of the last true frontiers.
+                </p>
+                <div class="highlights">
+                    <span>💎 Crystal Water</span>
+                    <span>🏝️ Untouched Paradise</span>
+                    <span>🏕️ Camping</span>
+                    <span>🤿 Snorkeling</span>
+                </div>
+                <a class="map-link" href="https://www.google.com/maps/search/Linapacan+Islands+Palawan+Philippines" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    View on Google Maps
+                </a>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <h2 id="mapTitle">&#127961; Beach Map</h2>
+        <div class="map-container" id="beachMap"></div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>&#10067; Frequently Asked Questions</h2>
+
+        <details class="faq-item">
+            <summary>What is the best time to visit Palawan?</summary>
+            <div class="faq-answer">The best time to visit Palawan is during the dry season from November to May. The peak months of January to April offer the calmest seas and sunniest skies, perfect for island hopping and diving. June to October is the rainy season with rougher seas that may affect boat tours.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>How do I get to Palawan, Philippines?</summary>
+            <div class="faq-answer">You can fly directly to Puerto Princesa (PPS) from Manila or Cebu, which is the main gateway. For El Nido, you can fly directly from Manila to El Nido's Lio Airport. For Coron, fly to Francisco B. Reyes Airport (USU) from Manila. Ferries also connect Coron to Manila (about 12 hours).</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Which is the most popular beach in Palawan?</summary>
+            <div class="faq-answer">El Nido is the most popular beach destination in Palawan, famous for its limestone cliffs, crystal lagoons, and island hopping tours. The Bacuit Archipelago's Tour A (Big Lagoon, Small Lagoon, Shimizu Island) and Tour C (Hidden Beach, Secret Beach) are the most sought-after experiences.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Is it safe to swim at Palawan's beaches?</summary>
+            <div class="faq-answer">Most of Palawan's beaches are generally safe for swimming, with calm, clear waters especially during the dry season. Always check local conditions and follow boat operator guidelines during island-hopping tours. Some areas have strong currents, so swim in designated areas and follow local advice.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>How much does it cost to visit El Nido?</summary>
+            <div class="faq-answer">A typical El Nido island hopping tour costs PHP 1,200–1,800 per person (approximately USD 22–33), including lunch, snorkeling gear, and boat fees. Budget accommodation ranges from PHP 800–2,000 per night. Mid-range resorts cost PHP 3,000–8,000 per night. Food at local restaurants costs PHP 200–500 per meal.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>Can I go island hopping in Palawan?</summary>
+            <div class="faq-answer">Yes! Island hopping is the main attraction. El Nido offers four standard tours (A, B, C, D) covering different island groups. Coron has its own island hopping tours covering Kayangan Lake, Twin Lagoon, and shipwreck sites. Honda Bay near Puerto Princesa also offers affordable island-hopping trips.</div>
+        </details>
+
+        <details class="faq-item">
+            <summary>What hidden gems should I visit in Palawan?</summary>
+            <div class="faq-answer">Port Barton is an unspoiled fishing village with great island hopping. San Vicente's Long Beach (14.7 km) is the longest white sand beach in the Philippines with barely any tourists. The Linapacan Islands between El Nido and Coron are said to have the clearest water in the world. Flower Island near Taytay is a pristine eco-resort.</div>
+        </details>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>&#127796; Visiting Palawan's Beaches</h3>
+        <p>
+            Fly into Puerto Princesa (PPS) for the Underground River and Honda Bay, El Nido's Lio Airport for the Bacuit Archipelago, or Coron's Busuanga Airport for wreck diving. Island hopping boats depart from most coastal towns. Best season: November to May (dry season).
+        </p>
+        <p>
+            Best season: November to May (dry season). Always check local weather and sea conditions before island trips.
+        </p>
+        <div class="credits">
+            Photos from Wikimedia Commons under Creative Commons licenses.<br>
+            Beach information sourced from local tourism resources.
+        </div>
+    </footer>
+
+    <script>
+    (function() {
+        var heroTitle = document.querySelector('.hero h1');
+        var heroSubtitle = document.querySelector('.hero .subtitle');
+        var heroTagline = document.querySelector('.hero .tagline');
+        var scrollIndicator = document.querySelector('.scroll-indicator');
+        var introTitle = document.querySelector('.intro h2');
+        var introText = document.querySelector('.intro p');
+        var cards = document.querySelectorAll('.beach-card');
+        var mapLinks = document.querySelectorAll('.map-link');
+        var footerTitle = document.querySelector('footer h3');
+        var footerPs = document.querySelectorAll('footer p');
+        var footerCredits = document.querySelector('footer .credits');
+
+        function getTextNode(el) {
+            for (var i = 0; i < el.childNodes.length; i++) {
+                var n = el.childNodes[i];
+                if (n.nodeType === 3 && n.textContent.trim()) return n;
+            }
+            return null;
+        }
+        function getLastTextNode(el) {
+            for (var i = el.childNodes.length - 1; i >= 0; i--) {
+                var n = el.childNodes[i];
+                if (n.nodeType === 3 && n.textContent.trim()) return n;
+            }
+            return null;
+        }
+        var exploreNode = getTextNode(scrollIndicator);
+        var mapTextNodes = Array.from(mapLinks).map(function(link) { return getLastTextNode(link); });
+
+        var en = {
+            pageTitle: document.title,
+            heroTitle: heroTitle.textContent,
+            heroSubtitle: heroSubtitle.textContent,
+            heroTagline: heroTagline.textContent.trim(),
+            heroExplore: exploreNode ? exploreNode.textContent.trim() : 'Explore',
+            introTitle: introTitle.textContent,
+            introText: introText.textContent.trim(),
+            mapLink: mapTextNodes[0] ? mapTextNodes[0].textContent.trim() : 'View on Google Maps',
+            footerTitle: footerTitle.textContent,
+            footerP1: footerPs[0].textContent.trim(),
+            footerP2: footerPs[1].textContent.trim(),
+            footerCredits: footerCredits.innerHTML,
+            beaches: Array.from(cards).map(function(card) {
+                return {
+                    badge: card.querySelector('.badge').textContent,
+                    desc: card.querySelector('.description').textContent.trim(),
+                    highlights: Array.from(card.querySelectorAll('.highlights span')).map(function(s) { return s.textContent; })
+                };
+            })
+        };
+
+        var no = {
+            pageTitle: 'Strendene i Palawan, Filippinene',
+            heroTitle: 'Strendene på Palawan',
+            heroSubtitle: 'MIMAROPA-regionen, Filippinene',
+            heroTagline: 'Fra krystallagunene i El Nido til vrakdykkingen i Coron og verdens klareste vann ved Linapacan — oppdag øyparadiset som stadig stemmes frem som verdens beste.',
+            heroExplore: 'Utforsk',
+            introTitle: 'Den Siste Grensen',
+            introText: 'Palawan, ofte kalt «Den Siste Grensen» i Filippinene, er en 450 kilometer lang rekke av uberørte øyer, skjulte laguner og krystallklart vann. Fra UNESCO-listede Underground River til de dramatiske kalksteinsformasjonene i El Nido og vrakdykkingen i verdensklasse i Coron.',
+            mapLink: 'Vis på Google Maps',
+            footerTitle: '\ud83c\udf34 Besøk Palawans strender',
+            footerP1: 'Fly til Puerto Princesa (PPS) for Underground River og Honda Bay, El Nidos Lio Airport for Bacuit-arkipelaget, eller Corons Busuanga Airport for vrakdykking.',
+            footerP2: 'Beste sesong: november til mai (tørketiden). Sjekk alltid lokale vær- og sjøforhold før øyturer.',
+            footerCredits: 'Bilder fra Wikimedia Commons under Creative Commons-lisenser.<br>Strandinformasjon hentet fra lokale reiselivsressurser.',
+            beaches: [
+            { badge: "★ Mest Populær", desc: "El Nido er kronjuvelen i Palawan, berømt for sine dramatiske kalksteinsformasjoner som reiser seg fra smaragdgrønt vann. Med over 45 øyer og holmer å utforske, tilbyr det øyhopping i verdensklasse gjennom skjulte laguner, hemmelige strender og fargerike korallhager. Bacuit-arkipelagets Tour A og Tour C anses som noen av de beste båtturene i hele Sørøst-Asia.", highlights: ["🏖️ Kalksteinsformasjoner", "⛵ Øyhopping", "🌊 Krystallaguner", "🤿 Snorkling", "🛶 Kajakk"] },
+            { badge: "Tur A", desc: "Big Lagoon er høydepunktet på El Nidos berømte Tour A, der høye kalksteinsvegger skaper et naturlig amfiteater rundt krystallklart smaragdgrønt vann. Padl gjennom den smale inngangen til en skjult verden av mangrover, fargerikt marinliv og surrealistiske fjellformasjoner.", highlights: ["🌊 Krystalllagune", "🛶 Kajakk", "🪨 Kalkstein"] },
+            { badge: "Tvillingstrender", desc: "En fantastisk 4 kilometer lang gyllen sandstrand som danner en tvillingstrand med naboen Calitang Beach. I motsetning til hovedområdet i El Nido, forblir Nacpan velsignet rolig med vaiende kokospalmer, milde bølger perfekte for bading, og spektakulære solnedganger.", highlights: ["🏖️ Gyllen Sand", "🌅 Solnedgang", "🌴 Rolig Tilfluktssted", "🏄 Surfing"] },
+            { badge: "Reneste Innsjø", desc: "Kalt den reneste innsjøen i Filippinene, Kayangan Lake er en ferskvannsjuvel gjemt bak en kort men bratt fottur gjennom kalksteinsformasjoner. Det krystallklare vannet avslører et overjordisk undervannslandskap. Utsiktspunktet på toppen byr på et av Palawans mest ikoniske panoramautsikter.", highlights: ["💎 Krystallklart Vann", "🏊 Bading", "🤿 Snorkling", "🥾 Fottur"] },
+            { badge: "UNESCO-sted", desc: "Et UNESCO verdensarvsted og et av Naturens Nye 7 Underverker. Puerto Princesa Subterranean River strekker seg over 8 kilometer gjennom et fantastisk kalksteinshulesystem. Båtturen glir forbi katedralaktige rom prydet med stalaktitter og stalagmitter.", highlights: ["🏛️ UNESCO Verdensarv", "🚣 Grotte-tur", "🦇 Underjordisk Elv", "🌿 Mangrover"] },
+            { badge: "Øyhopping", desc: "En samling vakre øyer bare en kort båttur fra Puerto Princesa. Honda Bay tilbyr noen av Palawans mest tilgjengelige øyhopping, med stopp ved Starfish Island, Luli Island og Cowrie Island. Det grunne turkise vannet er perfekt for snorkling.", highlights: ["⛵ Øyhopping", "🤿 Snorkling", "⭐ Sjøstjerne-øya", "🏖️ Hvit Sand"] },
+            { badge: "Skjult Perle", desc: "En søvnig fiskerlandsby som føles som Palawan før turismen kom. Port Barton har ingen minibanker, begrenset WiFi og grusveier — og det er nettopp sjarmen. Med uberørt øyhopping, korallrev fulle av havskilpadder, og noen av de rimeligste strandbungalowene på Filippinene.", highlights: ["🌴 Avsidesliggende", "🐢 Havskilpadder", "⛵ Øyhopping", "📵 Utenfor Nettet"] },
+            { badge: "Lengste Strand", desc: "Med 14,7 kilometer er Long Beach i San Vicente den lengste hvite sandstranden i Filippinene — ti ganger lengre enn Boracays berømte White Beach. Til tross for rekordlengden forblir den en av Palawans best bevarte hemmeligheter med nesten ingen turister og mil etter mil med uberørt kystlinje.", highlights: ["��️ 14km Strand", "🌴 Hvit Sand", "🌅 Uberørt", "🏝️ Avsidesliggende"] },
+            { badge: "Vrakdykking", desc: "Coron er en verdenskjent vrakdykkingsdestinasjon, hjem til en flåte av japanske forsyningsskip senket under andre verdenskrig. Dykkere utforsker de uhyggelige restene av Irako Maru, Akitsushima og Kogyo Maru, nå dekket av fargerikt korall. Selv ikke-dykkere kan snorkle over grunne vrak.", highlights: ["🤿 Vrakdykking", "📍 WWII-historie", "🐠 Marinliv", "🌊 Snorkling"] },
+            { badge: "Øko-resort", desc: "En liten privat øyparadis utenfor kysten av Taytay. Flower Island er en av Palawans mest eksklusive og miljøvennlige feriesteder. Omgitt av uberørte korallrev fulle av tropiske fisker, med stråtakshytter, økologiske hager og noe av det beste husrevsnorklingen i Filippinene.", highlights: ["🏝️ Privat Øy", "♻️ Økoturisme", "🐠 Korallrev", "�� Fuglekikking"] },
+            { badge: "Utenfor Allfarvei", desc: "Inngangsstranden til Underground River er langt mer enn bare et transittsted. Den lange sandstranden er omgitt av jungelkledte fjell og mangroveskog. Etter mørkets frembrudd kan du ta en magisk ildfluetur langs den mangrovekantede Sabang-elven, der tusenvis av ildfluer lyser opp trærne.", highlights: ["🌿 Mangrover", "✨ Ildfluetur", "🌴 Jungelstrand", "🧗 Zipline"] },
+            { badge: "Klareste Vann", desc: "Gjemt mellom El Nido og Coron, sies det at Linapacan-øyene har det klareste vannet i verden. Denne avsidesliggende øygruppen med 52 øyer er praktisk talt uberørt av turisme — ingen resorter, ingen restauranter, bare uberørte strender og undervannsikt som virker uendelig.", highlights: ["💎 Krystallklart Vann", "🏝️ Uberørt Paradis", "🏕️ Camping", "🤿 Snorkling"] }
+            ]
+        };
+
+        var tl = {
+            pageTitle: 'Mga Dalampasigan ng Palawan, Pilipinas',
+            heroTitle: 'Mga Dalampasigan ng Palawan',
+            heroSubtitle: 'Rehiyon ng MIMAROPA, Pilipinas',
+            heroTagline: 'Mula sa kristal na laguna ng El Nido hanggang sa wreck diving ng Coron at pinakamalinaw na tubig sa Linapacan — tuklasin ang island paradise na patuloy na ibinoboto bilang pinakamahusay sa mundo.',
+            heroExplore: 'Tuklasin',
+            introTitle: 'Ang Huling Hangganan',
+            introText: 'Ang Palawan, madalas tawaging «Huling Hangganan» ng Pilipinas, ay isang 450-kilometrong hanay ng malilinis na isla, nakatagong laguna, at kristal na tubig. Mula sa UNESCO-listed Underground River hanggang sa dramatikong limestone karsts ng El Nido at world-class wreck diving ng Coron.',
+            mapLink: 'Tingnan sa Google Maps',
+            footerTitle: '\ud83c\udf34 Pagbisita sa mga Dalampasigan ng Palawan',
+            footerP1: 'Lumipad papuntang Puerto Princesa (PPS) para sa Underground River at Honda Bay, El Nido Lio Airport para sa Bacuit Archipelago, o Coron Busuanga Airport para sa wreck diving.',
+            footerP2: 'Pinakamagandang panahon: Nobyembre hanggang Mayo (tag-init). Palaging suriin ang lagay ng panahon at dagat bago mag-island trip.',
+            footerCredits: 'Mga larawan mula sa Wikimedia Commons sa ilalim ng Creative Commons licenses.<br>Impormasyon sa dalampasigan mula sa mga lokal na mapagkukunan ng turismo.',
+            beaches: [
+            { badge: "★ Pinakasikat", desc: "Ang El Nido ang pinakamagandang hiyas ng Palawan, sikat sa dramatikong limestone karst na mga bangin na tumataas mula sa berdeng tubig. Sa mahigit 45 isla at isleta na pwedeng tuklasin, nag-aalok ito ng world-class island hopping sa mga nakatagong laguna, lihim na dalampasigan, at makulay na bahura. Ang Bacuit Archipelago Tour A at Tour C ay itinuturing na pinakamahusay na boat trip sa buong Timog-Silangang Asya.", highlights: ["🏖️ Limestone Cliffs", "⛵ Island Hopping", "🌊 Mga Laguna", "🤿 Snorkeling", "🛶 Kayaking"] },
+            { badge: "Tour A", desc: "Ang Big Lagoon ang highlight ng sikat na Tour A ng El Nido, kung saan ang matataas na limestone walls ay lumilikha ng isang kahanga-hangang natural amphitheater sa paligid ng kristal na berdeng tubig. Mag-kayak sa makitid na pasukan papunta sa nakatagong mundo ng mga mangrove at makulay na buhay-dagat.", highlights: ["🌊 Kristal na Laguna", "🛶 Kayaking", "🪨 Limestone"] },
+            { badge: "Kambal na Dalampasigan", desc: "Isang kahanga-hangang 4 na kilometrong gintong buhangin na bumubuo ng twin beach kasama ang katabing Calitang Beach. Hindi tulad ng pangunahing lugar ng El Nido, ang Nacpan ay nananatiling tahimik na may mga niyog, banayad na alon, at kamangha-manghang paglubog ng araw.", highlights: ["🏖️ Gintong Buhangin", "🌅 Paglubog ng Araw", "🌴 Tahimik", "🏄 Surfing"] },
+            { badge: "Pinakamalinis na Lawa", desc: "Tinaguriang pinakamalinis na lawa sa Pilipinas, ang Kayangan Lake ay isang freshwater na hiyas na nakatago sa likod ng isang maikling ngunit matarik na lakad sa mga limestone. Ang kristal na tubig ay nagpapakita ng kahanga-hangang underwater landscape. Ang viewpoint sa tuktok ay isa sa pinakasikat na panoramic view ng Coron Bay.", highlights: ["💎 Kristal na Tubig", "🏊 Paglangoy", "🤿 Snorkeling", "🥾 Hiking"] },
+            { badge: "UNESCO Site", desc: "Isang UNESCO World Heritage Site at isa sa New 7 Wonders of Nature, ang Puerto Princesa Subterranean River ay mahigit 8 kilometro sa loob ng kahanga-hangang limestone cave system. Ang boat tour ay dumadaan sa mga cathedral-like chamber na puno ng stalactites at stalagmites.", highlights: ["🏛️ UNESCO Heritage", "🚣 Cave Tour", "🦇 Underground River", "🌿 Mangrove"] },
+            { badge: "Island Hopping", desc: "Isang koleksyon ng magagandang isla na maikling bangka lang mula sa Puerto Princesa. Ang Honda Bay ay nag-aalok ng pinakamaginhawang island-hopping sa Palawan, na may mga tigil sa Starfish Island, Luli Island, at Cowrie Island.", highlights: ["⛵ Island Hopping", "🤿 Snorkeling", "⭐ Starfish Island", "🏖️ Puting Buhangin"] },
+            { badge: "Nakatagong Yaman", desc: "Isang tahimik na fishing village na parang Palawan bago dumating ang turismo. Walang ATM, limitadong WiFi, at daang-lupa ang Port Barton — at iyan mismo ang akit nito. May pristine island-hopping, coral reefs na puno ng mga pawikan, at abot-kayang beachfront bungalow.", highlights: ["🌴 Tahimik", "🐢 Mga Pawikan", "⛵ Island Hopping", "📵 Off-Grid"] },
+            { badge: "Pinakamahabang Dalampasigan", desc: "Sa 14.7 kilometro, ang Long Beach sa San Vicente ang pinakamahabang puting buhangin sa Pilipinas — sampung beses na mas mahaba kaysa sa sikat na White Beach ng Boracay. Sa kabila nito, nananatili itong isa sa pinakamagandang sikreto ng Palawan na halos walang turista.", highlights: ["🏖️ 14km Dalampasigan", "🌴 Puting Buhangin", "🌅 Di-nasira", "🏝️ Tahimik"] },
+            { badge: "Wreck Diving", desc: "Ang Coron ay isang world-renowned wreck diving destination, tahanan ng mga Japanese supply ship na nilubog noong World War II. Tinutuklas ng mga diver ang mga labi ng Irako Maru, Akitsushima, at Kogyo Maru, na ngayon ay nababalot ng makulay na coral. Kahit hindi diver ay pwedeng mag-snorkel sa mga mababaw na wreck.", highlights: ["🤿 Wreck Diving", "📍 WWII History", "🐠 Buhay-dagat", "🌊 Snorkeling"] },
+            { badge: "Eco-Resort", desc: "Isang maliit na private island paradise sa baybayin ng Taytay. Ang Flower Island ay isa sa pinakaekslusibo at eco-friendly na getaway sa Palawan. Napapalibutan ng pristine coral reef na puno ng tropical fish, may mga thatched-roof cottage, organic garden, at mahusay na house reef snorkeling.", highlights: ["🏝️ Private Island", "♻️ Eco-Tourism", "🐠 Coral Reefs", "🦅 Pagmamasid ng Ibon"] },
+            { badge: "Liblib na Lugar", desc: "Ang gateway beach papuntang Underground River, ang Sabang ay higit pa sa isang transit point. Ang mahabang buhangin ay napapalibutan ng bundok na natatakpan ng kagubatan at mangrove. Pagkagabi, mag-firefly watching boat tour sa Sabang River kung saan libo-libong alitaptap ang nagniningning sa mga puno.", highlights: ["🌿 Mangrove", "✨ Firefly Tour", "🌴 Jungle Beach", "🧗 Zip Line"] },
+            { badge: "Pinakamalinaw na Tubig", desc: "Nakatago sa pagitan ng El Nido at Coron, sinasabing ang Linapacan Islands ay may pinakamalinaw na tubig sa mundo. Ang malayong archipelago na ito na may 52 isla ay halos hindi nasasagi ng turismo — walang resort, walang restaurant, puro malilinis na dalampasigan at underwater visibility na tila walang katapusan.", highlights: ["💎 Kristal na Tubig", "🏝️ Di-nasirang Paraiso", "🏕️ Camping", "🤿 Snorkeling"] }
+            ]
+        };
+
+        var TX = { en: en, no: no, tl: tl };
+
+        function setLanguage(lang) {
+            var t = TX[lang];
+            if (!t) return;
+            document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+            document.title = t.pageTitle;
+            heroTitle.textContent = t.heroTitle;
+            heroSubtitle.textContent = t.heroSubtitle;
+            heroTagline.textContent = t.heroTagline;
+            if (exploreNode) exploreNode.textContent = ' ' + t.heroExplore + ' ';
+            introTitle.textContent = t.introTitle;
+            introText.textContent = t.introText;
+            mapTextNodes.forEach(function(node) {
+                if (node) node.textContent = ' ' + t.mapLink + ' ';
+            });
+            Array.from(cards).forEach(function(card, i) {
+                var b = t.beaches[i];
+                card.querySelector('.badge').textContent = b.badge;
+                card.querySelector('.description').textContent = b.desc;
+                var spans = card.querySelectorAll('.highlights span');
+                b.highlights.forEach(function(h, j) { if (spans[j]) spans[j].textContent = h; });
+            });
+            footerTitle.textContent = t.footerTitle;
+            footerPs[0].textContent = t.footerP1;
+            footerPs[1].textContent = t.footerP2;
+            footerCredits.innerHTML = t.footerCredits;
+            document.querySelectorAll('.lang-switcher button').forEach(function(btn) {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            try { localStorage.setItem('beach-lang', lang); } catch(e) {}
+        }
+
+        document.querySelector('.lang-switcher').addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-lang]');
+            if (btn) setLanguage(btn.dataset.lang);
+        });
+        try {
+            var saved = localStorage.getItem('beach-lang');
+            if (saved && saved !== 'en' && TX[saved]) setLanguage(saved);
+        } catch(e) {}
+    })();
+
+    // ── Geolocation, Distance & Map ──
+    (function() {
+        var banner = document.getElementById('locationBanner');
+        var btnAllow = document.getElementById('btnAllowLocation');
+        var btnDismiss = document.getElementById('btnDismissLocation');
+        var cards = document.querySelectorAll('.beach-card');
+        var userMarker = null;
+        var map = null;
+
+        function haversine(lat1, lon1, lat2, lon2) {
+            var R = 6371;
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+
+        function formatDistance(km) {
+            if (km < 1) return Math.round(km * 1000) + ' m away';
+            if (km < 10) return km.toFixed(1) + ' km away';
+            return Math.round(km) + ' km away';
+        }
+
+        function updateDistances(userLat, userLng) {
+            cards.forEach(function(card) {
+                var lat = parseFloat(card.dataset.lat);
+                var lng = parseFloat(card.dataset.lng);
+                if (isNaN(lat) || isNaN(lng)) return;
+                var dist = haversine(userLat, userLng, lat, lng);
+                var badge = card.querySelector('.distance-badge');
+                var text = card.querySelector('.distance-text');
+                if (badge && text) {
+                    text.textContent = formatDistance(dist);
+                    badge.classList.add('visible');
+                }
+            });
+        }
+
+        function addUserMarkerToMap(userLat, userLng) {
+            if (!map) return;
+            if (userMarker) map.removeLayer(userMarker);
+            var userIcon = L.divIcon({
+                html: '<div style="background:#ff6b6b;width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);"></div>',
+                className: '',
+                iconSize: [14, 14],
+                iconAnchor: [7, 7]
+            });
+            userMarker = L.marker([userLat, userLng], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<strong>Your location</strong>');
+        }
+
+        function onLocationSuccess(pos) {
+            var userLat = pos.coords.latitude;
+            var userLng = pos.coords.longitude;
+            banner.classList.add('hidden');
+            updateDistances(userLat, userLng);
+            addUserMarkerToMap(userLat, userLng);
+            try {
+                localStorage.setItem('loc-lat', userLat);
+                localStorage.setItem('loc-lng', userLng);
+                localStorage.setItem('loc-allowed', '1');
+            } catch(e) {}
+        }
+
+        function onLocationError() { banner.classList.add('hidden'); }
+
+        function requestLocation() {
+            if (!navigator.geolocation) { banner.classList.add('hidden'); return; }
+            navigator.geolocation.getCurrentPosition(onLocationSuccess, onLocationError, {
+                enableHighAccuracy: false, timeout: 10000, maximumAge: 300000
+            });
+        }
+
+        var dismissed = false, allowed = false;
+        try {
+            dismissed = localStorage.getItem('loc-dismissed') === '1';
+            allowed = localStorage.getItem('loc-allowed') === '1';
+        } catch(e) {}
+        if (!navigator.geolocation || dismissed || allowed) banner.classList.add('hidden');
+        if (allowed) {
+            try {
+                var cachedLat = parseFloat(localStorage.getItem('loc-lat'));
+                var cachedLng = parseFloat(localStorage.getItem('loc-lng'));
+                if (!isNaN(cachedLat) && !isNaN(cachedLng)) updateDistances(cachedLat, cachedLng);
+            } catch(e) {}
+            requestLocation();
+        }
+
+        btnAllow.addEventListener('click', function() { requestLocation(); });
+        btnDismiss.addEventListener('click', function() {
+            banner.classList.add('hidden');
+            try { localStorage.setItem('loc-dismissed', '1'); } catch(e) {}
+        });
+
+        function initMap() {
+            map = L.map('beachMap', { scrollWheelZoom: false }).setView([10.5, 119.5], 7);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 18
+            }).addTo(map);
+            var bounds = [];
+            cards.forEach(function(card) {
+                var lat = parseFloat(card.dataset.lat);
+                var lng = parseFloat(card.dataset.lng);
+                if (isNaN(lat) || isNaN(lng)) return;
+                var name = card.querySelector('h3').textContent;
+                var location = card.querySelector('.location').textContent;
+                var marker = L.marker([lat, lng]).addTo(map);
+                marker.bindPopup('<strong>' + name + '</strong><br><span style="color:#555;font-size:0.82rem;">' + location + '</span>');
+                bounds.push([lat, lng]);
+            });
+            if (bounds.length > 0) map.fitBounds(bounds, { padding: [40, 40] });
+            try {
+                var savedLat = parseFloat(localStorage.getItem('loc-lat'));
+                var savedLng = parseFloat(localStorage.getItem('loc-lng'));
+                if (!isNaN(savedLat) && !isNaN(savedLng)) addUserMarkerToMap(savedLat, savedLng);
+            } catch(e) {}
+        }
+
+        var mapEl = document.getElementById('beachMap');
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) { initMap(); observer.disconnect(); }
+            }, { rootMargin: '200px' });
+            observer.observe(mapEl);
+        } else { initMap(); }
+    })();
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Beach Explorer",
+        "url": "https://himmelfisk.github.io/beaches/",
+        "description": "Discover the best beaches across Southeast Asia."
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TouristDestination",
+        "name": "Beaches of Palawan",
+        "description": "Discover the 12 best beaches in Palawan, Philippines. From the famous El Nido lagoons and Coron wreck dives to hidden gems like Port Barton and the Linapacan Islands.",
+        "url": "https://himmelfisk.github.io/beaches/palawan-philippines/",
+        "touristType": ["Beach Lovers", "Divers", "Island Hoppers", "Eco-Tourists", "Snorkelers"],
+        "geo": { "@type": "GeoCoordinates", "latitude": 10.5, "longitude": 119.5 },
+        "containedInPlace": { "@type": "AdministrativeArea", "name": "Palawan, MIMAROPA, Philippines" },
+        "includesAttraction": [
+            {
+                "@type": "Beach",
+                "name": "El Nido Beach",
+                "description": "El Nido is the crown jewel of Palawan, famous for its dramatic limestone karst cliffs rising from emerald waters. With over 45 islands and islets to explore, it offers world-class island hopping throu",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1280px-El_Nido_Beach%2C_Palawan.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.1784, "longitude": 119.392 },
+                "address": { "@type": "PostalAddress", "addressLocality": "El Nido", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Big Lagoon",
+                "description": "The Big Lagoon is the highlight of El Nido's famous Tour A, where towering limestone walls create a breathtaking natural amphitheater around crystal-clear emerald waters. Kayak through the narrow entr",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.2, "longitude": 119.32 },
+                "address": { "@type": "PostalAddress", "addressLocality": "El Nido", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Nacpan Beach",
+                "description": "A stunning 4-kilometer stretch of golden sand that forms a twin beach with neighboring Calitang Beach. Unlike the main El Nido area, Nacpan remains blissfully uncrowded with swaying coconut palms, gen",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg/1280px-Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.2833, "longitude": 119.4167 },
+                "address": { "@type": "PostalAddress", "addressLocality": "El Nido", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Kayangan Lake",
+                "description": "Dubbed the cleanest lake in the Philippines, Kayangan Lake is a freshwater gem hidden behind a short but steep hike through limestone rocks. The crystal-clear waters reveal an otherworldly underwater ",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-El_Nido%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.9833, "longitude": 120.2 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Coron", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Puerto Princesa Underground River",
+                "description": "A UNESCO World Heritage Site and one of the New 7 Wonders of Nature, the Puerto Princesa Subterranean River stretches over 8 kilometers through a stunning limestone cave system. The boat tour glides p",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Puerto_Princesa_Underground_River.jpg/1280px-Puerto_Princesa_Underground_River.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 10.1833, "longitude": 118.9167 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Puerto Princesa", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Honda Bay",
+                "description": "A collection of beautiful islands just a short boat ride from Puerto Princesa. Honda Bay offers some of Palawan's most accessible island-hopping, with stops at Starfish Island, Luli Island, and Cowrie",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Palawan_Underground_river.jpg/1280px-Palawan_Underground_river.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 9.8333, "longitude": 118.7333 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Puerto Princesa", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Port Barton",
+                "description": "A sleepy fishing village that feels like Palawan before tourism arrived. Port Barton has no ATMs, limited WiFi, and dirt roads \u2014 and that's exactly the charm. With pristine island-hopping, coral reefs",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Entrance_Puerto_Princesa_Subterranean_River.jpg/1280px-Entrance_Puerto_Princesa_Subterranean_River.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 10.4667, "longitude": 119.1167 },
+                "address": { "@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Long Beach San Vicente",
+                "description": "At 14.7 kilometers, Long Beach in San Vicente is the longest white sand beach in the Philippines \u2014 longer than Boracay's famous White Beach by a factor of ten. Despite its record length, it remains on",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/El_Nido_Beach%2C_Palawan.jpg/1280px-El_Nido_Beach%2C_Palawan.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 10.5, "longitude": 119.2833 },
+                "address": { "@type": "PostalAddress", "addressLocality": "San Vicente", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Coron Shipwreck Sites",
+                "description": "Coron is a world-renowned wreck diving destination, home to a fleet of Japanese supply ships sunk during World War II. Divers explore the eerie remains of the Irako Maru, Akitsushima, and Kogyo Maru, ",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-El_Nido%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.9667, "longitude": 120.2167 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Coron", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Flower Island",
+                "description": "A tiny private island paradise off the coast of Taytay, Flower Island is one of Palawan's most exclusive and eco-friendly getaways. Surrounded by pristine coral reefs teeming with tropical fish, the i",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg/1280px-Big_Lagoon_at_El_Nido%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 10.8333, "longitude": 119.5 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Taytay", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Sabang Beach",
+                "description": "The gateway beach to the Underground River, Sabang is far more than just a transit point. The long stretch of sand is backed by jungle-covered mountains and lined with mangrove forests. After dark, ta",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg/1280px-Beach_in_El_Nido_Bay%2C_pure_tropical_bliss%2C_Palawan%2C_Philippines.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 10.1833, "longitude": 118.9 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Puerto Princesa", "addressRegion": "Palawan", "addressCountry": "PH" }
+            },
+            {
+                "@type": "Beach",
+                "name": "Linapacan Islands",
+                "description": "Tucked between El Nido and Coron, the Linapacan Islands are said to have the clearest water in the world. This remote archipelago of 52 islands remains virtually untouched by tourism \u2014 no resorts, no ",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Puerto_Princesa_Underground_River.jpg/1280px-Puerto_Princesa_Underground_River.jpg",
+                "geo": { "@type": "GeoCoordinates", "latitude": 11.4833, "longitude": 119.8833 },
+                "address": { "@type": "PostalAddress", "addressLocality": "Linapacan", "addressRegion": "Palawan", "addressCountry": "PH" }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "What is the best time to visit Palawan?", "acceptedAnswer": { "@type": "Answer", "text": "The best time to visit Palawan is during the dry season from November to May. The peak months of January to April offer the calmest seas and sunniest skies, perfect for island hopping and diving. June to October is the rainy season with rougher seas that may affect boat tours." } },
+            { "@type": "Question", "name": "How do I get to Palawan, Philippines?", "acceptedAnswer": { "@type": "Answer", "text": "You can fly directly to Puerto Princesa (PPS) from Manila or Cebu, which is the main gateway. For El Nido, you can fly directly from Manila to El Nido's Lio Airport. For Coron, fly to Francisco B. Reyes Airport (USU) from Manila. Ferries also connect Coron to Manila (about 12 hours)." } },
+            { "@type": "Question", "name": "Which is the most popular beach in Palawan?", "acceptedAnswer": { "@type": "Answer", "text": "El Nido is the most popular beach destination in Palawan, famous for its limestone cliffs, crystal lagoons, and island hopping tours. The Bacuit Archipelago's Tour A (Big Lagoon, Small Lagoon, Shimizu Island) and Tour C (Hidden Beach, Secret Beach) are the most sought-after experiences." } },
+            { "@type": "Question", "name": "Is it safe to swim at Palawan's beaches?", "acceptedAnswer": { "@type": "Answer", "text": "Most of Palawan's beaches are generally safe for swimming, with calm, clear waters especially during the dry season. Always check local conditions and follow boat operator guidelines during island-hopping tours. Some areas have strong currents, so swim in designated areas and follow local advice." } },
+            { "@type": "Question", "name": "How much does it cost to visit El Nido?", "acceptedAnswer": { "@type": "Answer", "text": "A typical El Nido island hopping tour costs PHP 1,200\u20131,800 per person (approximately USD 22\u201333), including lunch, snorkeling gear, and boat fees. Budget accommodation ranges from PHP 800\u20132,000 per night. Mid-range resorts cost PHP 3,000\u20138,000 per night. Food at local restaurants costs PHP 200\u2013500 per meal." } },
+            { "@type": "Question", "name": "Can I go island hopping in Palawan?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Island hopping is the main attraction. El Nido offers four standard tours (A, B, C, D) covering different island groups. Coron has its own island hopping tours covering Kayangan Lake, Twin Lagoon, and shipwreck sites. Honda Bay near Puerto Princesa also offers affordable island-hopping trips." } },
+            { "@type": "Question", "name": "What hidden gems should I visit in Palawan?", "acceptedAnswer": { "@type": "Answer", "text": "Port Barton is an unspoiled fishing village with great island hopping. San Vicente's Long Beach (14.7 km) is the longest white sand beach in the Philippines with barely any tourists. The Linapacan Islands between El Nido and Coron are said to have the clearest water in the world. Flower Island near Taytay is a pristine eco-resort." } }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Beach Explorer", "item": "https://himmelfisk.github.io/beaches/" },
+            { "@type": "ListItem", "position": 2, "name": "Palawan, Philippines", "item": "https://himmelfisk.github.io/beaches/palawan-philippines/" }
+        ]
+    }
+    </script>
+
+</body>
+</html>
